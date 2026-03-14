@@ -1,0 +1,23 @@
+entity User {
+    department: String,
+};
+
+entity Resource {
+    environment: String,
+    is_locked: Bool,
+};
+
+action "read" appliesTo {
+    principal: [User],
+    resource: [Resource],
+};
+
+action "write" appliesTo {
+    principal: [User],
+    resource: [Resource],
+};
+
+action "delete" appliesTo {
+    principal: [User],
+    resource: [Resource],
+};
