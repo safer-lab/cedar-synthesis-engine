@@ -192,9 +192,7 @@ The translation works in both directions:
 2. **Admin feedback → Updated ceiling**: Admin says "Actually, I want clearance level 5 for confidential documents specifically" → LLM updates the ceiling policy → engine re-verifies the candidate.
 3. **Counterexample → NL**: Instead of showing raw entity graphs, translate them: *"A user in HR with clearance 3 was able to edit an Active project document — is this intended?"*
 
-## Why this is actually your paper's thesis
-
-This closes the loop on the **Verifiable Synthesis Paradox** from your research. The paradox was: LLMs generate convincing explanations but incorrect policies. Your architecture inverts that:
+This closes the loop on the **Verifiable Synthesis Paradox** from our previous research. The paradox was: LLMs generate convincing explanations but incorrect policies. This architecture inverts that:
 
 - The **LLM** writes the policy (where it's unreliable) → but the **SMT solver** catches errors
 - The **LLM** translates formal specs to NL (where it's reliable) → so humans can audit the *ground truth*
