@@ -22,10 +22,8 @@ from solver_wrapper import (
     run_never_errors_check,
 )
 
-WORKSPACE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "workspace")
-SCHEMA_PATH = os.path.join(WORKSPACE, "schema.cedarschema")
-CANDIDATE_PATH = os.path.join(WORKSPACE, "candidate.cedar")
-POLICY_STORE_PATH = os.path.join(WORKSPACE, "policy_store.cedar")
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_WORKSPACE = os.path.join(ROOT_DIR, "workspace")
 
 
 def main():
@@ -34,7 +32,16 @@ def main():
         "--translate", action="store_true",
         help="Enable NL translation of counterexamples (requires ANTHROPIC_API_KEY)",
     )
+    parser.add_argument(
+        "--workspace", type=str, default=DEFAULT_WORKSPACE,
+        help="Path to workspace directory (default: ./workspace)",
+    )
     args = parser.parse_args()
+
+    workspace = os.path.abspath(args.workspace)
+    schema_path = os.path.join(workspace, "schema.cedarschema")
+    candidate_path = os.path.join(workspace, "candidate.cedar")
+    policy_store_path = os.path.join(workspace, "policy_store.cedar")
 
     translate = args.translate
     if translate:
@@ -51,14 +58,14 @@ def main():
     print("CEDAR SYNTHESIS ENGINE — EVALUATOR")
     print("=" * 60)
 
-    if not os.path.exists(CANDIDATE_PATH):
-        print("\nERROR: workspace/candidate.cedar not found.")
-        print("Write your candidate policy to workspace/candidate.cedar first.")
+    if not os.path.exists(candidate_path):
+        print(f"\nERROR: {candidate_path} not found.")
+        print("Write your candidate policy to candidate.cedar first.")
         sys.exit(1)
 
     # ----- Gate 1: Syntax Check -----
     print("\n--- Gate 1: Syntax Check ---")
-    is_valid, error_msg = run_syntax_check(SCHEMA_PATH, CANDIDATE_PATH)
+    is_valid, error_msg = run_syntax_check(schema_path, candidate_path)
     if not is_valid:
         print(f"syntax:    FAIL")
         print(f"error:     {error_msg}")
@@ -69,8 +76,12 @@ def main():
     # ----- Gate 2: Verification Plan -----
     print("\n--- Gate 2: Verification Plan ---")
 
-    from workspace.verification_plan import get_checks
-    checks = get_checks()
+    import importlib.util
+    vp_path = os.path.join(workspace, "verification_plan.py")
+    spec = importlib.util.spec_from_file_location("verification_plan", vp_path)
+    vp_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vp_module)
+    checks = vp_module.get_checks()
 
     results = []
     for check in checks:
@@ -78,8 +89,8 @@ def main():
 
         if ctype == "implies":
             result = run_implies_check(
-                schema_path=SCHEMA_PATH,
-                candidate_path=CANDIDATE_PATH,
+                schema_path=schema_path,
+                candidate_path=candidate_path,
                 reference_path=check["reference_path"],
                 principal_type=check["principal_type"],
                 action=check["action"],
@@ -89,8 +100,8 @@ def main():
             )
         elif ctype == "always-denies-liveness":
             result = run_always_denies_check(
-                schema_path=SCHEMA_PATH,
-                candidate_path=CANDIDATE_PATH,
+                schema_path=schema_path,
+                candidate_path=candidate_path,
                 principal_type=check["principal_type"],
                 action=check["action"],
                 resource_type=check["resource_type"],
@@ -100,8 +111,8 @@ def main():
             )
         elif ctype == "never-errors":
             result = run_never_errors_check(
-                schema_path=SCHEMA_PATH,
-                candidate_path=CANDIDATE_PATH,
+                schema_path=schema_path,
+                candidate_path=candidate_path,
                 principal_type=check["principal_type"],
                 action=check["action"],
                 resource_type=check["resource_type"],
@@ -110,9 +121,9 @@ def main():
             # Reverse-implies: floor ≤ candidate
             # Verifies candidate allows at least what the floor demands
             result = run_implies_check(
-                schema_path=SCHEMA_PATH,
+                schema_path=schema_path,
                 candidate_path=check["floor_path"],    # floor is policies1
-                reference_path=CANDIDATE_PATH,          # candidate is policies2
+                reference_path=candidate_path,          # candidate is policies2
                 principal_type=check["principal_type"],
                 action=check["action"],
                 resource_type=check["resource_type"],
@@ -136,11 +147,11 @@ def main():
         print("The candidate policy is formally verified.")
 
         # Append verified candidate to policy store
-        with open(CANDIDATE_PATH) as f:
+        with open(candidate_path) as f:
             verified = f.read()
-        with open(POLICY_STORE_PATH, "a") as f:
+        with open(policy_store_path, "a") as f:
             f.write(f"\n// --- Verified and appended ---\n{verified}")
-        print(f"Policy appended to {os.path.basename(POLICY_STORE_PATH)}.")
+        print(f"Policy appended to {os.path.basename(policy_store_path)}.")
     else:
         print(f"\nRESULT: {loss} CHECK(S) FAILED ✗")
         print("\nFailures:")
@@ -161,9 +172,9 @@ def main():
 
     if loss == 0 and translate:
         try:
-            with open(CANDIDATE_PATH) as f:
+            with open(candidate_path) as f:
                 candidate_text = f.read()
-            with open(SCHEMA_PATH) as f:
+            with open(schema_path) as f:
                 schema_text = f.read()
             print("\n--- Verified Policy Summary ---")
             summary = policy_to_nl(candidate_text, schema_text)

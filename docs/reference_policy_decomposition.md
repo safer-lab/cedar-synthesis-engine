@@ -166,3 +166,27 @@ Agent A can generate the verification plan and reference policies from these two
 |--------|-----------------|
 | `candidate.cedar` | The synthesized policy, written by Agent B through the feedback loop |
 | Orchestrator output | Loss count, per-check pass/fail, and counterexamples for failures |
+
+## Worked Example: GitHub Repository Permissions
+
+This scenario models GitHub's repository access control with five role tiers (reader, triager, writer, maintainer, admin), issue ownership, and an archived-repo deny rule.
+
+**What makes it interesting:**
+- **Role hierarchy via entity groups**: permissions are checked with `principal in resource.readers`, where readers/writers/etc. are `UserGroup` attributes on the `Repository` entity.
+- **Cross-entity traversal**: issue actions require `principal in resource.repo.triagers` — the solver must reason through the Issue → Repository → UserGroup chain.
+- **Dual-path permissions**: `edit_issue` is allowed if the user is a writer OR (reader AND the issue's reporter). The candidate must cover both paths without being over-permissive.
+- **Forbid interaction**: push and admin actions must be blocked when `resource.isArchived == true`, creating a permit/forbid interaction the solver can verify.
+
+**Verification plan (9 checks):**
+- 5 ceiling checks — pull, push (with archive gate), edit_issue, delete_issue, add_reader (with archive gate)
+- 2 floor checks — writers must edit regardless of reporter status; reporters must delete without maintainer role
+- 2 liveness checks — push and edit_issue are not trivially denied
+
+**Synthesis trace:**
+
+| Iteration | Loss | What the solver caught |
+|-----------|------|----------------------|
+| 1 | 2 | Ceiling: `isArchived: true` permits push (missing archive check). Floor: reporter+reader can't delete own issue (only maintainer path existed) |
+| 2 | 0 | All 9 checks passed — policy formally verified |
+
+The floor check is what makes this example compelling: the candidate's `edit_issue` rule (writer-only) passes the ceiling because writer ⊆ (writer ∪ reporter) — ceilings only catch over-permissive bugs. The matching floor forces the candidate to also include the reporter self-edit path, ensuring bidirectional correctness.
