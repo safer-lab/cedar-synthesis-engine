@@ -20,8 +20,8 @@ entity Repository = {
     maintainers: UserGroup,
     admins: UserGroup,
     isArchived: Bool,
-collaboratorCount: Long,
-maxCollaborators: Long,
+    collaboratorCount: Long,
+    maxCollaborators: Long,
 };
 
 entity User in [UserGroup, Team] = {
@@ -32,7 +32,6 @@ entity User in [UserGroup, Team] = {
 action pull, push, fork appliesTo {
     principal: [User],
     resource: [Repository],
-accountAgeDays: Long,
 };
 
 // Issue actions

@@ -1046,6 +1046,29 @@ def run_scenario(
     with open(schema_path) as f:
         schema = f.read()
 
+    # ── Phase 0.5: Schema sanity check ────────────────────────────────────
+    # Validate the schema against an empty policy file. If the schema itself
+    # doesn't parse, every downstream reference / candidate will "fail" with
+    # the same schema error, Phase 1.25 will burn its self-correction rounds
+    # blaming the LLM, and Phase 2 will hit a syntax-error loop. None of that
+    # is the model's fault — the scenario is malformed. Detect it here and
+    # abort with a clear error so the run summary shows the real cause.
+    _empty_policy = os.path.join(workspace, "_empty_policy_for_schema_check.cedar")
+    with open(_empty_policy, "w") as _f:
+        _f.write("// schema sanity check\n")
+    _ok, _err_msg, _err_kind = run_syntax_check(schema_path, _empty_policy)
+    try:
+        os.remove(_empty_policy)
+    except OSError:
+        pass
+    if not _ok and _err_kind == "parse" and "schema" in _err_msg.lower():
+        # cedar validate's parse error against an empty policy is *always*
+        # a schema-level problem (the policy file has nothing to misparse).
+        first_line = _err_msg.strip().split("\n", 1)[0][:200]
+        return _err(
+            f"Scenario schema is malformed (Cedar parse error): {first_line}"
+        )
+
     spec_path = os.path.join(workspace, "policy_spec.md")
     policy_spec = ""
     if os.path.exists(spec_path):
