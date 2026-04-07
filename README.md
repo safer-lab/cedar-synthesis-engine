@@ -70,18 +70,36 @@ The parent `cedar-synthesis-engine` repo provides the verification backbone:
 - prompt and feedback strategy design
 - benchmark task curation
 
+## What Is Already Built
+
+The repository now contains a first working baseline stack for policy-generation experiments:
+
+- single-model prompt strategy experiments under [src/experiments/single_model_baselines/](src/experiments/single_model_baselines)
+- reusable evaluation code under [src/metrics/](src/metrics)
+- prepared local datasets with `references/` and `verification_plan.py` so semantic alignment can be checked formally
+
+The current evaluation flow is:
+
+1. `Syntax`
+   Use `cedar validate` to determine whether the generated policy is valid Cedar.
+2. `Schema`
+   Use Cedar validation diagnostics to determine whether the policy grounds correctly to the provided schema.
+3. `Semantic`
+   Use `verification_plan.py`, `references/*.cedar`, `cedar symcc`, and `cvc5` to test semantic alignment and detect counterexamples.
+
 ## Current Layout
 
 - [target/project_goal.md](target/project_goal.md): project motivation and notes
-- [dataset/](dataset): draft or local scenario inputs
+- [dataset/](dataset): local task datasets, now including reference policies and verification plans
 - [src/test_lm.py](src/test_lm.py): quick local model endpoint test
-- [src/experiments/](src/experiments): scratch experiment notes
+- [src/experiments/](src/experiments): experiment design, prompt strategies, and single-model baselines
+- [src/metrics/](src/metrics): reusable syntax/schema/semantic evaluation code
 - [SETUP_COMMANDS.md](SETUP_COMMANDS.md): environment setup and verification commands
 
 ## Immediate Directions
 
+- finish benchmarking single-model baselines across prompt strategies
+- compare open-source local models with the shared evaluation metrics
 - define the multi-agent roles needed for Cedar generation
-- connect local open-source model endpoints to the synthesis loop
-- measure syntax correctness and semantic alignment separately
-- study which scaffolding techniques most improve small-model performance
+- test whether multi-agent orchestration beats the strongest single-model baseline
 - determine how close verifier-guided small models can get to frontier-model behavior
