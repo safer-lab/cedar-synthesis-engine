@@ -658,7 +658,34 @@ common floor failure:
   ONLY the positive conditions for that specific permission path (role,
   ACL membership, ownership, etc.); trust the forbids to handle the global
   constraints. Floor references are written this way and your permit rules
-  must match their shape."""
+  must match their shape.
+
+DATETIME / DURATION SYNTAX — Cedar mixes two formats; do not confuse them:
+- `datetime(...)` literals use **ISO 8601** (the standard date format):
+    datetime("2025-03-02T20:00:00Z")        // OK
+    datetime("2025-02-02T00:00:00Z")        // OK
+- `duration(...)` literals use **Go-style** duration strings, NOT ISO 8601:
+    duration("21h")                          // OK — 21 hours
+    duration("6h")                           // OK — 6 hours
+    duration("24h")                          // OK — 24 hours
+    duration("-24h")                         // OK — negative 24 hours (e.g., 24h before)
+    duration("1h30m")                        // OK — 1 hour 30 minutes
+    duration("1d")                           // OK — 1 day (Cedar extension)
+    duration("PT21H")                        // WRONG — Cedar rejects ISO 8601
+    duration("P1D")                          // WRONG — Cedar rejects ISO 8601
+    duration("-P1D")                         // WRONG — Cedar rejects ISO 8601
+- The asymmetry is real: `datetime` is ISO 8601, `duration` is Go-style.
+  Most LLMs reach for ISO 8601 for both because it is the standard
+  interchange format. Cedar will reject ISO 8601 durations with the error
+  `Failed to parse as a duration value`. If you see that error, the fix is
+  to rewrite ONLY the duration literal, not any datetime literals.
+- For datetime arithmetic on entity-attribute datetimes, use `.offset(duration)`
+  and `.toTime()`. Examples:
+    resource.releaseDate.offset(duration("-24h"))
+    // ^ "24 hours before the release date"
+    context.now.datetime.offset(context.now.localTimeOffset).toTime() >= duration("21h")
+    // ^ "is the local time-of-day at or after 21:00?"
+"""
 
 
 def _strip_cedar_fencing(text: str) -> str:
@@ -880,6 +907,78 @@ def _format_validation_feedback(error_text: str) -> str:
             "Wrap EVERY read of these attributes in `(context has X && ...)` or use a `when` "
             "clause guard. Adding the guard back is REQUIRED — removing it to satisfy a "
             "different check will just bring this error back."
+        )
+        parts.append("")
+
+    # Detect Cedar's "Failed to parse as a duration value" error. Cedar uses
+    # Go-style duration strings (e.g. "21h", "6h", "-24h", "1h30m", "1d"),
+    # NOT ISO 8601 (e.g. "PT21H", "P1D"). LLMs reach for ISO 8601 by default
+    # because it is the standard interchange format, and Cedar rejects it
+    # with a parseable error. The fix is to surface the correct format
+    # explicitly so the model can switch syntax.
+    bad_durations: list[str] = []
+    for match in re.finditer(
+        r"Failed to parse as a duration value:\s*`?\"([^`\"]+)\"`?",
+        error_text,
+    ):
+        bad = match.group(1)
+        if bad not in bad_durations:
+            bad_durations.append(bad)
+    if bad_durations:
+        parts.append(
+            "**Root cause: Cedar `duration()` constructor rejected the following "
+            "string(s): "
+            + ", ".join(f"`\"{d}\"`" for d in bad_durations)
+            + "**"
+        )
+        parts.append("")
+        parts.append(
+            "Cedar's `duration` constructor uses **Go-style** duration syntax, NOT "
+            "ISO 8601. The strings above look like ISO 8601 (`PT21H`, `P1D`, etc.) "
+            "and Cedar will not parse them. You must rewrite them in Go-style:"
+        )
+        parts.append("")
+        parts.append("CORRECT Cedar duration literals:")
+        parts.append("```cedar")
+        parts.append("  duration(\"21h\")        // 21 hours")
+        parts.append("  duration(\"6h\")         // 6 hours")
+        parts.append("  duration(\"24h\")        // 24 hours")
+        parts.append("  duration(\"-24h\")       // negative 24 hours")
+        parts.append("  duration(\"1h30m\")      // 1 hour 30 minutes")
+        parts.append("  duration(\"30m\")        // 30 minutes")
+        parts.append("  duration(\"1d\")         // 1 day (Cedar extension)")
+        parts.append("```")
+        parts.append("")
+        parts.append("WRONG (what your policy currently has):")
+        parts.append("```cedar")
+        for d in bad_durations[:3]:
+            parts.append(f"  duration(\"{d}\")  // Cedar rejects this — ISO 8601 form")
+        parts.append("```")
+        parts.append("")
+        # Heuristic translations for common ISO 8601 patterns the model is
+        # likely to have written. Conservative — only the obvious cases.
+        translations: list[tuple[str, str]] = []
+        for d in bad_durations:
+            if d == "PT21H": translations.append((d, "21h"))
+            elif d == "PT6H": translations.append((d, "6h"))
+            elif d == "PT24H" or d == "P1D": translations.append((d, "24h"))
+            elif d == "-PT24H" or d == "-P1D": translations.append((d, "-24h"))
+            elif d.startswith("PT") and d.endswith("H"):
+                hrs = d[2:-1]
+                if hrs.isdigit(): translations.append((d, f"{hrs}h"))
+            elif d.startswith("-PT") and d.endswith("H"):
+                hrs = d[3:-1]
+                if hrs.isdigit(): translations.append((d, f"-{hrs}h"))
+        if translations:
+            parts.append("Suggested literal-for-literal rewrites:")
+            for bad, good in translations:
+                parts.append(f"  `\"{bad}\"`  →  `\"{good}\"`")
+            parts.append("")
+        parts.append(
+            "Note: Cedar's `datetime` constructor (e.g. "
+            "`datetime(\"2025-03-02T20:00:00Z\")`) DOES use ISO 8601 — only the "
+            "`duration` constructor uses Go-style. Do NOT change your "
+            "datetime literals; only change the duration literals."
         )
         parts.append("")
 
