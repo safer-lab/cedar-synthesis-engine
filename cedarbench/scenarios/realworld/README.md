@@ -29,6 +29,7 @@ designed by hand to probe production patterns and harness edge cases.
 | 10 | [string_prefix_domain_match](./string_prefix_domain_match) | Email-pattern ACL | medium | Cedar's `like` glob operator (only string primitive) |
 | 11 | [intentional_planner_contradiction](./intentional_planner_contradiction) | §8.8 regression test | hard (planning) | Self-referential corner case hunting unsatisfiable bounds |
 | 12 | [hundred_check_scale](./hundred_check_scale) | Large-scale RBAC matrix | hard (scale) | 157-check stress test for conversation trimming and context |
+| 13 | [nested_namespaces](./nested_namespaces) | Multi-level namespace organization | medium | Three-level namespace (`Company::Billing::Invoice`) with cross-namespace entity type references |
 
 ## Pattern Taxonomy
 
