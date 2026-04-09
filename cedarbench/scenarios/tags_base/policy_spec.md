@@ -1,3 +1,14 @@
+---
+pattern: "base tag-scoped"
+difficulty: easy
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tag- and Role-Based Access Control — Policy Specification
 
 ## Context

@@ -1,3 +1,15 @@
+---
+pattern: "add role"
+difficulty: hard
+features:
+  - role-clearance hierarchy
+  - document sensitivity levels
+  - consent-based access
+  - sponsor role with cross-role interaction
+domain: healthcare / clinical trials
+source: mutation (clinical domain)
+---
+
 # Clinical Trial Data Platform -- Policy Specification
 
 ## Context

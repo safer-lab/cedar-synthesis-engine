@@ -1,3 +1,15 @@
+---
+pattern: "add role"
+difficulty: medium
+features:
+  - ACL-based sharing
+  - owner/viewer/editor roles
+  - blocking semantics
+  - admin group
+domain: document management
+source: mutation (doccloud domain)
+---
+
 # Document Cloud Permissions -- Policy Specification
 
 ## Context

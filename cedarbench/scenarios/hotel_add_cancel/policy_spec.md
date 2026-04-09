@@ -1,3 +1,15 @@
+---
+pattern: "add action"
+difficulty: easy
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+  - cancel reservation action
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chain Permissions -- Policy Specification
 
 ## Context

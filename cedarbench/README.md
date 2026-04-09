@@ -11,15 +11,16 @@ sets of scenarios:
    remove a constraint, add a new action, etc.), testing whether a
    policy synthesizer can keep up with realistic evolution of a
    specification.
-2. **Realworld scenarios** (`scenarios/realworld/*`) — 12 hand-designed
+2. **Realworld scenarios** (`scenarios/realworld/*`) — 42 hand-designed
    scenarios targeting specific production access-control patterns and
    Cedar features. Each realworld scenario is authored to probe a
    particular real-world workflow (emergency break-glass, approval
-   chains, multi-tenant SaaS, MFA elevation, etc.) with enough
-   fidelity that the result is suitable for both harness evaluation
-   and as a reference implementation for practitioners.
+   chains, multi-tenant SaaS, MFA elevation, GDPR compliance, loan
+   approval, IoT device auth, CI/CD deployment gates, etc.) with
+   enough fidelity that the result is suitable for both harness
+   evaluation and as a reference implementation for practitioners.
 
-Together, CedarBench provides **91 verification-ready scenarios**,
+Together, CedarBench provides **121 verification-ready scenarios**,
 each with a natural-language specification, a Cedar schema, and a
 hand- or auto-authored verification plan defining the checks the
 harness runs against a synthesized candidate policy.
@@ -34,12 +35,12 @@ synthesis, formal verification, and CEGIS-style feedback loops.
 ```
 cedarbench/
 ├── README.md                 # this file
-├── scenarios/                # 91 total scenarios
+├── scenarios/                # 121 total scenarios
 │   ├── <domain>_base/        # 8 domain-base scenarios
 │   ├── <domain>_add_X/       # domain × mutation scenarios
 │   ├── <domain>_remove_X/    # (79 total mutation scenarios)
 │   ├── <domain>_full_expansion/
-│   └── realworld/            # 12 hand-designed scenarios
+│   └── realworld/            # 42 hand-designed scenarios
 │       ├── README.md         # realworld-specific index
 │       └── <scenario>/
 ├── base_scenarios.py         # definitions for the 8 base scenarios
@@ -78,24 +79,22 @@ Each base scenario is further mutated by the mutation generator
 (`generate.py` + `mutations/`) into 8–14 scenario variants that add,
 remove, or modify a single aspect of the base policy.
 
-## The Twelve Realworld Scenarios
+## The 42 Realworld Scenarios
 
-See `scenarios/realworld/README.md` for the full index. A summary:
+See `scenarios/realworld/README.md` for the full index, pattern
+taxonomy, and per-scenario results. Summary of domains covered:
 
-| # | Scenario | Pattern |
-|---|----------|---------|
-| 1 | emergency_break_glass | Healthcare break-glass with care-team baseline |
-| 2 | approval_chain_workflow | Multi-signer approval state machine |
-| 3 | multi_tenant_saas | Tenant isolation with global-support read |
-| 4 | contextual_mfa_elevation | Step-up authentication with MFA freshness |
-| 5 | legal_hold_override_expiry | Records management with legal hold |
-| 6 | delegation_temporary_grant | Ephemeral grants via context attestation |
-| 7 | pii_data_classification | MLS / clearance / need-to-know |
-| 8 | payroll_separation_of_duties | SOX Separation of Duties |
-| 9 | api_key_scoped_access | Machine-to-machine with scope strings |
-| 10 | string_prefix_domain_match | Email-based ACL using Cedar's `like` |
-| 11 | intentional_planner_contradiction | Self-referential corner case |
-| 12 | hundred_check_scale | 157-check scale stress test |
+| Category | Count | Examples |
+|----------|:-----:|---------|
+| Identity & authorization | 11 | tenant isolation, RBAC, MLS, M2M, delegation |
+| Temporal & contextual | 6 | MFA elevation, business hours, booking, grant expiry |
+| Workflow / state-machine | 6 | approval chains, SoD, prescriptions, loans, CI/CD, tickets |
+| Compliance | 8 | GDPR, audit immutability, content moderation, rate limiting |
+| Resource management | 2 | document locking, warehouse zones |
+| Subscription / entitlement | 2 | content gates, feature flags |
+| Structural / Cedar-feature | 3 | deep hierarchy, namespaces, annotations |
+| Meta / harness-stress | 2 | §8.8 regression, 157-check scale |
+| Multi-factor / security | 2 | graduated MFA unlock, API key scoping |
 
 ## Running a Scenario
 
@@ -107,7 +106,7 @@ python3 eval_harness.py \
     --no-review --max-iters 20 \
     --run-id my_run
 
-# Run all 91 scenarios in sequence
+# Run all 121 scenarios in sequence
 python3 eval_harness.py \
     --all \
     --phase2-model claude-haiku-4-5-20251001 \
@@ -141,9 +140,10 @@ A typical benchmark run records, per scenario:
 - **Tokens / cost** — how many input and output tokens the Phase 2
   synthesizer consumed, and the resulting API cost
 
-Under the current post-fix harness (as of the latest commit on
-`main`), all 91 scenarios converge successfully with Haiku 4.5 as
-the Phase 2 synthesizer.
+Under the current post-fix harness (as of the latest commit),
+all 121 scenarios converge successfully with Haiku 4.5 as the
+Phase 2 synthesizer. The harness documents ten novel CEGIS
+signal-layer contributions (§8.1–§8.10) in `docs/harness_fix_log.md`.
 
 ## Citation
 

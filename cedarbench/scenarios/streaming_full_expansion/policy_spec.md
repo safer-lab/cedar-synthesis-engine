@@ -1,3 +1,15 @@
+---
+pattern: "full expansion"
+difficulty: hard
+features:
+  - subscription tiers
+  - datetime-based content windows
+  - parental controls
+  - all mutations combined
+domain: media / streaming
+source: mutation (streaming domain)
+---
+
 # Streaming Service — Policy Specification
 
 ## Context

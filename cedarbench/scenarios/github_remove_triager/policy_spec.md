@@ -1,3 +1,15 @@
+---
+pattern: "remove role"
+difficulty: easy
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - remove triager role
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

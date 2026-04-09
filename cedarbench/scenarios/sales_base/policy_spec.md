@@ -1,3 +1,14 @@
+---
+pattern: "base job-hierarchy"
+difficulty: easy
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization — Policy Specification
 
 ## Context

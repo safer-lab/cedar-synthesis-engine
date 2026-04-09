@@ -1,3 +1,15 @@
+---
+pattern: "add role"
+difficulty: medium
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - regional manager role
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification
 
 ## Context

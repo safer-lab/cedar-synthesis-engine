@@ -1,3 +1,14 @@
+---
+pattern: "base ACL"
+difficulty: easy
+features:
+  - ACL-based sharing
+  - owner/viewer/editor roles
+  - blocking semantics
+domain: document management
+source: mutation (doccloud domain)
+---
+
 # Document Cloud Drive — Policy Specification
 
 ## Context

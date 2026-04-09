@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - subscription tiers
+  - datetime-based content windows
+  - parental controls
+  - multi-device limit
+domain: media / streaming
+source: mutation (streaming domain)
+---
+
 # Streaming Service — Policy Specification
 
 ## Context

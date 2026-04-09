@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - remove archive blocking
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

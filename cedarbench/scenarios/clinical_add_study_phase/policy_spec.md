@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - role-clearance hierarchy
+  - document sensitivity levels
+  - consent-based access
+  - study phase attribute
+domain: healthcare / clinical trials
+source: mutation (clinical domain)
+---
+
 # Clinical Trial Data Platform -- Policy Specification
 
 ## Context

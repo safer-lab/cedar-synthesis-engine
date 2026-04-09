@@ -1,3 +1,15 @@
+---
+pattern: "compound mutation"
+difficulty: hard
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+  - franchise + loyalty compound
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chain Permissions -- Policy Specification (Franchise + Loyalty + Renovation)
 
 ## Context

@@ -1,3 +1,14 @@
+---
+pattern: "base MLS"
+difficulty: easy
+features:
+  - role-clearance hierarchy
+  - document sensitivity levels
+  - consent-based access
+domain: healthcare / clinical trials
+source: mutation (clinical domain)
+---
+
 # Policy Specification — Clinical Trial Data Platform
 
 Write Cedar policies to control **View** and **Edit** actions on Documents in a clinical trial system.

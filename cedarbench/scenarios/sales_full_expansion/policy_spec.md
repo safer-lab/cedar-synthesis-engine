@@ -1,3 +1,15 @@
+---
+pattern: "full expansion"
+difficulty: hard
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - all mutations combined
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification (Full Expansion)
 
 ## Context

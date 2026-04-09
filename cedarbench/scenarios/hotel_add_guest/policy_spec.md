@@ -1,3 +1,15 @@
+---
+pattern: "add role"
+difficulty: medium
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+  - guest role
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chain Permissions -- Policy Specification
 
 ## Context

@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - team assignment
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification
 
 ## Context

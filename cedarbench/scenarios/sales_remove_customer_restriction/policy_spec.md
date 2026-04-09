@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - remove customer restriction
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification (No Customer Restriction)
 
 ## Context

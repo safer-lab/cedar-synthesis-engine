@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: easy
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - private visibility flag
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

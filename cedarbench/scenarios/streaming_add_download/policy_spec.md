@@ -1,3 +1,15 @@
+---
+pattern: "add action"
+difficulty: medium
+features:
+  - subscription tiers
+  - datetime-based content windows
+  - parental controls
+  - download action
+domain: media / streaming
+source: mutation (streaming domain)
+---
+
 # Streaming Service — Policy Specification
 
 ## Context

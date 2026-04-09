@@ -1,3 +1,15 @@
+---
+pattern: "add temporal"
+difficulty: medium
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+  - temporal rate windows
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chain Permissions -- Policy Specification
 
 ## Context

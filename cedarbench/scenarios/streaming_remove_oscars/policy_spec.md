@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - subscription tiers
+  - datetime-based content windows
+  - parental controls
+  - remove Oscars temporal window
+domain: media / streaming
+source: mutation (streaming domain)
+---
+
 # Streaming Service — Policy Specification
 
 ## Context

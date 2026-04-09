@@ -1,3 +1,15 @@
+---
+pattern: "add action"
+difficulty: easy
+features:
+  - organization-scoped access
+  - consent-based forbid
+  - client profiles
+  - edit action
+domain: finance / tax preparation
+source: mutation (tax domain)
+---
+
 # Tax Preparer Permissions -- Policy Specification
 
 ## Context

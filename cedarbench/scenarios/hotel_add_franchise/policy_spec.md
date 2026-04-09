@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+  - franchise-level access
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chain Permissions -- Policy Specification (with Franchise)
 
 ## Context

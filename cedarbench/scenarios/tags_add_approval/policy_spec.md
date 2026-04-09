@@ -1,3 +1,15 @@
+---
+pattern: "add workflow"
+difficulty: medium
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+  - approval requirement
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tags & Roles Workspace Permissions -- Policy Specification
 
 ## Context

@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+  - remove wildcard matching
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tags & Roles Workspace Permissions -- Policy Specification (Strict Matching)
 
 ## Context

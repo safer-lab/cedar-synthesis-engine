@@ -1,3 +1,15 @@
+---
+pattern: "add workflow"
+difficulty: hard
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - approval workflow
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification
 
 ## Context

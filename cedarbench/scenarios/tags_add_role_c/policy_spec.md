@@ -1,3 +1,15 @@
+---
+pattern: "add role"
+difficulty: medium
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+  - new role C
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tags & Roles Workspace Permissions -- Policy Specification
 
 ## Context

@@ -1,3 +1,15 @@
+---
+pattern: "add temporal"
+difficulty: hard
+features:
+  - ACL-based sharing
+  - owner/viewer/editor roles
+  - blocking semantics
+  - time-bounded sharing
+domain: document management
+source: mutation (doccloud domain)
+---
+
 # Document Cloud Permissions -- Policy Specification
 
 ## Context

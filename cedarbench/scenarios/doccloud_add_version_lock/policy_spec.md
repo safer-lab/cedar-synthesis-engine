@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - ACL-based sharing
+  - owner/viewer/editor roles
+  - blocking semantics
+  - version lock flag
+domain: document management
+source: mutation (doccloud domain)
+---
+
 # Document Cloud Permissions -- Policy Specification
 
 ## Context

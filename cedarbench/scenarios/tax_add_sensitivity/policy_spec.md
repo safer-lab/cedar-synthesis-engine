@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - organization-scoped access
+  - consent-based forbid
+  - client profiles
+  - sensitivity classification
+domain: finance / tax preparation
+source: mutation (tax domain)
+---
+
 # Tax Preparer Permissions -- Policy Specification
 
 ## Context

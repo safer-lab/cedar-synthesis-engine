@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - ACL-based sharing
+  - owner/viewer/editor roles
+  - blocking semantics
+  - remove public access
+domain: document management
+source: mutation (doccloud domain)
+---
+
 # Document Cloud Permissions -- Policy Specification
 
 ## Context

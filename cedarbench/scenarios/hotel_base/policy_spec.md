@@ -1,3 +1,14 @@
+---
+pattern: "base franchise-hierarchy"
+difficulty: easy
+features:
+  - franchise hierarchy
+  - viewer/member/admin roles
+  - loyalty tiers
+domain: hospitality / hotel chains
+source: mutation (hotel domain)
+---
+
 # Hotel Chains — Policy Specification
 
 ## Context

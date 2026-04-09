@@ -1,3 +1,15 @@
+---
+pattern: "remove role"
+difficulty: easy
+features:
+  - role-clearance hierarchy
+  - document sensitivity levels
+  - consent-based access
+  - remove auditor role
+domain: healthcare / clinical trials
+source: mutation (clinical domain)
+---
+
 # Clinical Trial Data Platform -- Policy Specification
 
 ## Context

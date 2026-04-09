@@ -1,3 +1,15 @@
+---
+pattern: "compound mutation"
+difficulty: hard
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - private + locked compound constraint
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

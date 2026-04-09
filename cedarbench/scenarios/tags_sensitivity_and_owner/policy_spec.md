@@ -1,3 +1,15 @@
+---
+pattern: "compound mutation"
+difficulty: hard
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+  - sensitivity + owner compound
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tags & Roles Workspace Permissions -- Policy Specification (Combined)
 
 ## Context

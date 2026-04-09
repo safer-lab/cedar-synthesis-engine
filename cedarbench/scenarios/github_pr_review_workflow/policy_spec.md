@@ -1,3 +1,15 @@
+---
+pattern: "add workflow"
+difficulty: hard
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - pull request review state machine
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

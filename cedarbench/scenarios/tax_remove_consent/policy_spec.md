@@ -1,3 +1,15 @@
+---
+pattern: "remove constraint"
+difficulty: easy
+features:
+  - organization-scoped access
+  - consent-based forbid
+  - client profiles
+  - remove consent forbid
+domain: finance / tax preparation
+source: mutation (tax domain)
+---
+
 # Tax Preparer Permissions -- Policy Specification (No Consent)
 
 ## Context

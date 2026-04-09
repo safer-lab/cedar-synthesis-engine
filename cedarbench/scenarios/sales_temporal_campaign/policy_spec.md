@@ -1,3 +1,15 @@
+---
+pattern: "add temporal"
+difficulty: medium
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - campaign time window
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification
 
 ## Context

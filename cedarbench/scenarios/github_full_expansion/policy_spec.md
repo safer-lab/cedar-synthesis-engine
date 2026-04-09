@@ -1,3 +1,15 @@
+---
+pattern: "full expansion"
+difficulty: hard
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - all mutations combined
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification (Full Expansion)
 
 ## Context

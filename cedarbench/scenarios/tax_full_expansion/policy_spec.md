@@ -1,3 +1,15 @@
+---
+pattern: "full expansion"
+difficulty: hard
+features:
+  - organization-scoped access
+  - consent-based forbid
+  - client profiles
+  - all mutations combined
+domain: finance / tax preparation
+source: mutation (tax domain)
+---
+
 # Tax Preparer Permissions -- Policy Specification (Full Expansion)
 
 ## Context

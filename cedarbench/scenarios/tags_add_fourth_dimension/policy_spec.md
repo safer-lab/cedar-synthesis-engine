@@ -1,3 +1,15 @@
+---
+pattern: "add constraint"
+difficulty: medium
+features:
+  - tag namespaces
+  - role-scoped access
+  - wildcard matching
+  - fourth dimension attribute
+domain: content management / tagging
+source: mutation (tags domain)
+---
+
 # Tags & Roles Workspace Permissions -- Policy Specification (Four Dimensions)
 
 ## Context

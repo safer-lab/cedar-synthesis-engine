@@ -1,3 +1,15 @@
+---
+pattern: "add action"
+difficulty: medium
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+  - new action: pull request
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context

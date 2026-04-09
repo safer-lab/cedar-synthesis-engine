@@ -1,3 +1,15 @@
+---
+pattern: "add action"
+difficulty: easy
+features:
+  - job-level hierarchy
+  - regional segmentation
+  - customer restrictions
+  - delete action
+domain: enterprise sales / CRM
+source: mutation (sales domain)
+---
+
 # Sales Organization Permissions -- Policy Specification
 
 ## Context

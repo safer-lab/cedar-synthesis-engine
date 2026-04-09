@@ -1,3 +1,14 @@
+---
+pattern: "base org-scoped"
+difficulty: easy
+features:
+  - organization-scoped access
+  - consent-based forbid
+  - client profiles
+domain: finance / tax preparation
+source: mutation (tax domain)
+---
+
 # Tax Preparer — Policy Specification
 
 ## Context

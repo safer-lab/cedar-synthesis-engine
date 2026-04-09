@@ -1,3 +1,14 @@
+---
+pattern: "base RBAC"
+difficulty: easy
+features:
+  - entity hierarchy (User/Team)
+  - role-based permissions
+  - archive blocking
+domain: software development
+source: mutation (github domain)
+---
+
 # GitHub Repository Permissions — Policy Specification
 
 ## Context
