@@ -29,31 +29,64 @@ designed by hand to probe production patterns and harness edge cases.
 | 10 | [string_prefix_domain_match](./string_prefix_domain_match) | Email-pattern ACL | medium | Cedar's `like` glob operator (only string primitive) |
 | 11 | [intentional_planner_contradiction](./intentional_planner_contradiction) | §8.8 regression test | hard (planning) | Self-referential corner case hunting unsatisfiable bounds |
 | 12 | [hundred_check_scale](./hundred_check_scale) | Large-scale RBAC matrix | hard (scale) | 157-check stress test for conversation trimming and context |
-| 13 | [nested_namespaces](./nested_namespaces) | Multi-level namespace organization | medium | Three-level namespace (`Company::Billing::Invoice`) with cross-namespace entity type references |
+| 13 | [nested_namespaces](./nested_namespaces) | Multi-level namespace organization | medium | Three-level namespace with cross-namespace entity type references |
+| 14 | [deep_entity_hierarchy](./deep_entity_hierarchy) | 5-level transitive membership | medium | Deepest entity `in` chain in the benchmark |
+| 15 | [policy_annotations](./policy_annotations) | @id / @description annotations | easy | Cedar annotation syntax on policy rules |
+| 16 | [set_contains_any](./set_contains_any) | Tag-based access with containsAny | medium | `.containsAny()` set operation (first use) |
+| 17 | [gdpr_data_retention](./gdpr_data_retention) | GDPR retention + right-to-erasure | hard | Datetime comparison for retention expiry + erasure flag |
+| 18 | [audit_log_immutability](./audit_log_immutability) | Append-only audit log | medium | Asymmetric action permissions (append OK, delete forbidden) |
+| 19 | [content_moderation_escalation](./content_moderation_escalation) | Tiered moderation with trust levels | medium | Numeric trust-level vs severity threshold matching |
+| 20 | [resource_budget_enforcement](./resource_budget_enforcement) | Quota-based provisioning | medium | Numeric comparison for tier-derived resource limits |
+| 21 | [backup_restore_asymmetric](./backup_restore_asymmetric) | Asymmetric backup/restore | medium | Environment-based restriction + on-call boolean |
+| 22 | [iot_device_auth](./iot_device_auth) | IoT device authorization | medium | Non-User Device principal + capability set |
+| 23 | [conference_room_booking](./conference_room_booking) | Time-windowed room booking | medium | Datetime + numeric capacity + level comparison |
+| 24 | [group_chat_moderator](./group_chat_moderator) | Discord/Slack-style moderation | medium | Owner/moderator/member tiers with `Set.contains()` |
+| 25 | [incident_response_war_room](./incident_response_war_room) | Tiered incident escalation | hard | Severity-clearance threshold + post-mortem override |
+| 26 | [educational_gradebook](./educational_gradebook) | Teacher/student/parent visibility | medium | Optional `parentOf` context with `has` guarding |
+| 27 | [medical_prescription_workflow](./medical_prescription_workflow) | Controlled substance prescription | hard | Optional `controlledSubstanceVerified` + multi-role workflow |
+| 28 | [loan_approval_workflow](./loan_approval_workflow) | Multi-tier banking approval | hard | Numeric `approvalLimit` + risk-based director escalation |
+| 29 | [matter_based_legal_access](./matter_based_legal_access) | Law firm matter-based access | medium | `Set.contains()` for matter assignment + privileged doc gate |
+| 30 | [shared_inbox_delegation](./shared_inbox_delegation) | Multi-user shared mailbox | medium | Owner/delegate/member tiers with `Set.contains()` |
+| 31 | [data_lineage_ancestry](./data_lineage_ancestry) | Clearance-based data lineage | hard | Classification hierarchy + department-scoped + PII export restriction |
 
 ## Pattern Taxonomy
-
-The scenarios cover the following production-access-control patterns:
 
 ### Identity & authorization patterns
 - **Care-team / ACL** — emergency_break_glass (1), legal_hold_override_expiry (5)
 - **Ephemeral delegation** — delegation_temporary_grant (6)
 - **Tenant isolation** — multi_tenant_saas (3)
-- **Role-based access (RBAC)** — payroll_separation_of_duties (8), hundred_check_scale (12)
-- **Multi-level security (MLS)** — pii_data_classification (7)
-- **Machine-to-machine** — api_key_scoped_access (9)
+- **Role-based access (RBAC)** — payroll_separation_of_duties (8), hundred_check_scale (12), policy_annotations (15)
+- **Multi-level security (MLS)** — pii_data_classification (7), data_lineage_ancestry (31)
+- **Machine-to-machine** — api_key_scoped_access (9), iot_device_auth (22)
 - **Email / pattern-based ACL** — string_prefix_domain_match (10)
+- **Matter / case-based** — matter_based_legal_access (29)
+- **Shared resource delegation** — shared_inbox_delegation (30), group_chat_moderator (24)
 
 ### Temporal & contextual patterns
 - **Step-up authentication** — contextual_mfa_elevation (4)
-- **Document expiry with hold override** — legal_hold_override_expiry (5)
+- **Document expiry** — legal_hold_override_expiry (5), gdpr_data_retention (17)
 - **Emergency time-windows** — emergency_break_glass (1)
 - **Grant expiry** — delegation_temporary_grant (6)
-- **API key expiry + revocation** — api_key_scoped_access (9)
+- **Room booking** — conference_room_booking (23)
 
 ### Workflow / state-machine patterns
 - **Multi-signer approval** — approval_chain_workflow (2)
 - **SOX Separation of Duties** — payroll_separation_of_duties (8)
+- **Medical prescription** — medical_prescription_workflow (27)
+- **Loan approval** — loan_approval_workflow (28)
+
+### Compliance patterns
+- **GDPR** — gdpr_data_retention (17)
+- **Audit immutability** — audit_log_immutability (18)
+- **Content moderation** — content_moderation_escalation (19)
+- **Budget enforcement** — resource_budget_enforcement (20)
+- **Backup/restore asymmetry** — backup_restore_asymmetric (21)
+- **Incident response** — incident_response_war_room (25)
+
+### Structural / Cedar-feature patterns
+- **Deep hierarchy** — deep_entity_hierarchy (14), nested_namespaces (13)
+- **Policy annotations** — policy_annotations (15)
+- **Set operations** — set_contains_any (16), approval_chain_workflow (2)
 
 ### Meta / harness-stress patterns
 - **§8.8 regression test** — intentional_planner_contradiction (11)
@@ -64,75 +97,23 @@ The scenarios cover the following production-access-control patterns:
 | Cedar feature | Scenario introducing it |
 |---|---|
 | `set.containsAll()` | approval_chain_workflow |
+| `set.containsAny()` | set_contains_any |
 | `datetime.durationSince(other)` | contextual_mfa_elevation |
 | `like` glob operator | string_prefix_domain_match |
 | Non-User principal entity type | api_key_scoped_access |
-| Narrow break-glass override permit | emergency_break_glass |
+| Multiple non-User principal types | iot_device_auth |
+| `@id()` / `@description()` annotations | policy_annotations |
+| 5-level entity hierarchy | deep_entity_hierarchy |
+| Multi-level namespaces | nested_namespaces |
 | Optional context attribute `?` with `has` guarding | delegation_temporary_grant |
-| Record literal `set.contains({field: value, ...})` | (tax_base, CedarBench mutation) |
-
-All other Cedar features exercised in this directory (entity hierarchies,
-attribute access, `in` set membership, datetime comparisons, `unless`
-clauses, forbid composition, record types as context attributes) are
-also exercised by the CedarBench mutation scenarios and not repeated
-in the above table.
-
-## Metadata Format
-
-Each `policy_spec.md` includes a YAML-style frontmatter block at the
-top with the following fields:
-
-- `pattern`: the named access-control pattern (see Pattern Taxonomy)
-- `difficulty`: one of `easy`, `medium`, `hard`; semantic difficulty
-  for the synthesizer (not scale)
-- `features`: a bulleted list of Cedar features and structural
-  properties exercised by the scenario
-- `domain`: the real-world domain the scenario models (e.g.
-  "healthcare", "finance / SOX compliance", "engineering / SRE")
-
-Example:
-
-```yaml
----
-pattern: delegation (ephemeral grant)
-difficulty: medium
-features:
-  - optional context attribute (`has` guarding)
-  - datetime comparison on nested record attribute
-  - fallback access path (owner vs grantee)
-  - per-action scoping on the same grant
-domain: engineering / SRE
----
-```
-
-## Running a Scenario
-
-From the repo root:
-
-```bash
-python3 eval_harness.py \
-  --scenario cedarbench/scenarios/realworld/<name> \
-  --phase2-model claude-haiku-4-5-20251001 \
-  --no-review --max-iters 20 \
-  --run-id my_run
-```
-
-This uses the hand-authored `verification_plan.py` and `references/`
-directly (no Phase 1 LLM call) and runs Phase 2 (synthesis) with the
-specified Haiku version. Results land under
-`eval_runs/<run-id>/<scenario_name>/`.
-
-To regenerate Phase 1 with an LLM planner instead of the hand-authored
-artifacts, add `--gen-references` and optionally
-`--phase1-model claude-opus-4-6`.
 
 ## Current Results
 
-All 12 scenarios converge under the post-fix harness (see
+All 31 scenarios converge under the post-fix harness (see
 `docs/harness_fix_log.md` for the harness evolution):
 
-| Scenario | Iterations | Checks | Cost |
-|----------|:----------:|:------:|:----:|
+| Scenario | Iters | Checks | Cost |
+|----------|:-----:|:------:|:----:|
 | emergency_break_glass            | 1  | 7   | $0.003 |
 | approval_chain_workflow          | 2  | 16  | $0.009 |
 | multi_tenant_saas                | 3  | 10  | $0.011 |
@@ -145,15 +126,27 @@ All 12 scenarios converge under the post-fix harness (see
 | string_prefix_domain_match       | 2  | 8   | $0.006 |
 | intentional_planner_contradiction | 1  | 4   | $0.003 |
 | hundred_check_scale              | 2  | 157 | $0.021 |
-| **Total**                        | —  | **275** | **$0.095** |
+| nested_namespaces                | 2  | 10  | $0.007 |
+| deep_entity_hierarchy            | 1  | 11  | $0.003 |
+| policy_annotations               | 1  | 9   | $0.003 |
+| set_contains_any                 | 2  | 9   | $0.006 |
+| gdpr_data_retention              | 2  | 12  | $0.006 |
+| audit_log_immutability           | 1  | 9   | $0.003 |
+| content_moderation_escalation    | 10 | 12  | $0.043 |
+| resource_budget_enforcement      | 1  | 12  | $0.003 |
+| backup_restore_asymmetric        | 2  | 10  | $0.006 |
+| iot_device_auth                  | 2  | 10  | $0.006 |
+| conference_room_booking          | 2  | 9   | $0.005 |
+| group_chat_moderator             | 2  | 14  | $0.006 |
+| incident_response_war_room       | 2  | 13  | $0.007 |
+| educational_gradebook            | 2  | 15  | $0.008 |
+| medical_prescription_workflow    | 2  | 17  | $0.009 |
+| loan_approval_workflow           | 2  | 16  | $0.008 |
+| matter_based_legal_access        | 1  | 11  | $0.003 |
+| shared_inbox_delegation          | 1  | 12  | $0.003 |
+| data_lineage_ancestry            | 3  | 12  | $0.012 |
 
-Mean iterations to converge: **1.75**.
-Mean cost per scenario: **$0.008**.
-
-Phase 1 in every scenario is hand-authored (by the human / agent acting
-as planner); Phase 2 is Haiku 4.5 via the Anthropic API. The cost
-figures reflect Phase 2 Haiku tokens only; Phase 1 authoring cost is
-zero in terms of API consumption.
+Phase 1 in every scenario is hand-authored; Phase 2 is Haiku 4.5.
 
 ## Citation
 

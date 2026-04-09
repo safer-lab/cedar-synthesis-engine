@@ -158,11 +158,11 @@ that rely on templates for verification; use the delegation pattern
 
 ## Dataset state (update on every commit)
 
-**Total scenarios: 92** (79 mutation + 13 realworld)
-**Total PASS: 66/66** (github 14, clinical 11, doccloud 10, streaming 10,
-tax 8, realworld 13)
+**Total scenarios: 110** (79 mutation + 31 realworld)
+**Total PASS: 85/85** (github 14, clinical 11, doccloud 10, streaming 10,
+tax 8, realworld 31 — plus hundred_check_scale 157 checks)
 
-Realworld scenarios:
+Realworld scenarios (31, all PASS):
 1. emergency_break_glass — PASS
 2. approval_chain_workflow — PASS
 3. multi_tenant_saas — PASS
@@ -175,31 +175,43 @@ Realworld scenarios:
 10. string_prefix_domain_match — PASS
 11. intentional_planner_contradiction — PASS
 12. hundred_check_scale — PASS (157 checks)
-13. nested_namespaces — PASS in 2 iters ($0.007, 3.5s)
+13. nested_namespaces — PASS 2 iters
+14. deep_entity_hierarchy — PASS 1 iter (one-shot)
+15. policy_annotations — PASS 1 iter (one-shot)
+16. set_contains_any — PASS 2 iters
+17. gdpr_data_retention — PASS 2 iters
+18. audit_log_immutability — PASS 1 iter
+19. content_moderation_escalation — PASS 10 iters (hardest)
+20. resource_budget_enforcement — PASS 1 iter
+21. backup_restore_asymmetric — PASS 2 iters
+22. iot_device_auth — PASS 2 iters
+23. conference_room_booking — PASS 2 iters
+24. group_chat_moderator — PASS 2 iters
+25. incident_response_war_room — PASS 2 iters
+26. educational_gradebook — PASS 2 iters
+27. medical_prescription_workflow — PASS 2 iters
+28. loan_approval_workflow — PASS 2 iters
+29. matter_based_legal_access — PASS 1 iter
+30. shared_inbox_delegation — PASS 1 iter
+31. data_lineage_ancestry — PASS 3 iters
 
-## Outstanding queue (agreed target: ~120 scenarios)
+## Known symcc limitations
 
-**Tier A — Cedar feature completeness** (next up)
-- ✅ `nested_namespaces` — built; awaiting harness run
-- `deep_entity_hierarchy` — 5-level `in` chain with transitive membership
-- `policy_annotations` — `@id("...")` / `@description("...")` annotations
-- `set_contains_any` — the one remaining set operation never tested
-- ~~`cedar_template_linking`~~ — DROPPED: symcc ignores templates
+- **Entity-graph `in` membership:** `cedar symcc` cannot prove liveness
+  for `principal in resource` (entity-graph membership). Use attribute-based
+  `resource.members.contains(principal)` instead. Discovered in
+  `group_chat_moderator`.
+- **Cedar templates:** `cedar symcc` ignores template-linked policies.
+  Use optional context attributes as the workaround for delegation patterns.
 
-**Tier B — Production patterns** (~15 scenarios)
-gdpr_data_retention, audit_log_immutability, content_moderation_escalation,
-resource_budget_enforcement, backup_restore_asymmetric, iot_device_auth,
-webhook_signature_verification, conference_room_booking,
-group_chat_moderator, incident_response_war_room, educational_gradebook,
-medical_prescription_workflow, loan_approval_workflow,
-matter_based_legal_access, shared_inbox_delegation, data_lineage_ancestry
-
-**Tier C — Adversarial / harness stress**
-ambiguous_spec_guidance, redundant_rules, missing_liveness_trap,
-subtle_bound_contradiction, mega_scale_500
+## Remaining opportunities
 
 **Metadata backfill** — add YAML frontmatter to the 79 mutation scenarios
 (pattern / difficulty / features / domain), for dataset filterability.
+
+**Additional Tier C adversarial:** mega_scale_500, ambiguous_spec_guidance,
+redundant_rules, missing_liveness_trap — defer unless harness paper needs
+ablation data.
 
 ## User collaboration notes
 
