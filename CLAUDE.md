@@ -165,8 +165,11 @@ that rely on templates for verification; use the delegation pattern
 ## Dataset state (update on every commit)
 
 **Total scenarios: 121** (79 mutation + 42 realworld)
-**Total PASS: 96/96** (github 14, clinical 11, doccloud 10, streaming 10,
-tax 8, realworld 42 — plus hundred_check_scale 157 checks)
+**Total PASS: 120/121** (github 14, clinical 11, doccloud 10, streaming 10,
+tax 8, hotel 9, sales 9, tags 7/8, realworld 42)
+**1 FAIL: tags_sensitivity_and_owner** — compound mutation (sensitivity +
+owner bypass), 20/20 syntax/validation oscillation. Legitimately hard.
+Total harness cost for full 121 run: ~$13.30 (Phase 1 Opus + Phase 2 Haiku).
 
 Realworld scenarios (31, all PASS):
 1. emergency_break_glass — PASS
