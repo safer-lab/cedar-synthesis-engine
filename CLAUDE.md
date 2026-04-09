@@ -17,7 +17,7 @@ Two artifacts are being built:
 1. **CedarBench** — a large benchmark of Cedar policy scenarios
    (`cedarbench/scenarios/`). First large-scale Cedar evaluation dataset.
 2. **The harness** — `eval_harness.py` + `orchestrator.py` + `solver_wrapper.py`,
-   documented as nine novel contributions in `docs/harness_fix_log.md`.
+   documented as ten novel contributions in `docs/harness_fix_log.md`.
 
 We are targeting **two papers**:
 - **Workshop paper** — CedarBench as a dataset (target ≥120 scenarios).
@@ -32,7 +32,7 @@ orchestrator.py          # per-check verification orchestration
 solver_wrapper.py        # cedar validate / cedar symcc invocation
                          # CEDAR_PATH pins /private/tmp/cedar/target/release/cedar
 docs/harness_fix_log.md  # READ FIRST — §3–§8 document all harness rules
-                         # §8.1–§8.9 = the nine novel contributions
+                         # §8.1–§8.10 = the ten novel contributions
 docs/cegis_algorithm.md  # high-level CEGIS algorithm description
 cedarbench/scenarios/    # 79 mutation scenarios (e.g. github_*, clinical_*)
 cedarbench/scenarios/realworld/  # hand-designed production patterns
@@ -141,6 +141,12 @@ before any read. `context has activeGrant && context.activeGrant.grantee == prin
 **Property-based plans (§5.2).** References encode orthogonal properties
 (e.g. "target must be same org," "approver role must be ≥ manager"), not
 per-role splits. Bounds compose via conjunction.
+
+**§8.10 Entity-graph membership liveness.** `cedar symcc` cannot prove
+liveness for `principal in resource` (entity-graph membership). The entity
+graph is opaque to the symbolic analyzer. Use `resource.members.contains(principal)`
+with `members: Set<Entity>` on the resource instead — symcc can reason about
+set containment. Discovered on `group_chat_moderator`.
 
 **Symbolic-analysis limits.** `cedar symcc` ignores Cedar `template`-linked
 policies — they appear as empty to the analyzer. Do NOT write scenarios
