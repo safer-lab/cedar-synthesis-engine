@@ -164,9 +164,9 @@ that rely on templates for verification; use the delegation pattern
 
 ## Dataset state (update on every commit)
 
-**Total scenarios: 110** (79 mutation + 31 realworld)
-**Total PASS: 85/85** (github 14, clinical 11, doccloud 10, streaming 10,
-tax 8, realworld 31 — plus hundred_check_scale 157 checks)
+**Total scenarios: 121** (79 mutation + 42 realworld)
+**Total PASS: 96/96** (github 14, clinical 11, doccloud 10, streaming 10,
+tax 8, realworld 42 — plus hundred_check_scale 157 checks)
 
 Realworld scenarios (31, all PASS):
 1. emergency_break_glass — PASS
@@ -200,6 +200,17 @@ Realworld scenarios (31, all PASS):
 29. matter_based_legal_access — PASS 1 iter
 30. shared_inbox_delegation — PASS 1 iter
 31. data_lineage_ancestry — PASS 3 iters
+32. webhook_signature_verification — PASS 1 iter
+33. time_of_day_business_hours — PASS 2 iters
+34. feature_flag_rollout — PASS 2 iters
+35. document_versioning_lock — PASS 2 iters
+36. multi_factor_resource_unlock — PASS 2 iters
+37. rate_limit_by_role — PASS 2 iters
+38. customer_support_ticket_escalation — PASS 2 iters
+39. inventory_warehouse_zone — PASS 3 iters
+40. ci_cd_deployment_gate — PASS 3 iters
+41. subscription_content_gate — PASS 2 iters
+42. compliance_training_gate — PASS 2 iters
 
 ## Known symcc limitations
 
