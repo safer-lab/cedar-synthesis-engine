@@ -17,7 +17,7 @@ Two artifacts are being built:
 1. **CedarBench** — a large benchmark of Cedar policy scenarios
    (`cedarbench/scenarios/`). First large-scale Cedar evaluation dataset.
 2. **The harness** — `eval_harness.py` + `orchestrator.py` + `solver_wrapper.py`,
-   documented as ten novel contributions in `docs/harness_fix_log.md`.
+   documented as eleven novel contributions in `docs/harness_fix_log.md`.
 
 We are targeting **two papers**:
 - **Workshop paper** — CedarBench as a dataset (target ≥120 scenarios).
@@ -32,7 +32,7 @@ orchestrator.py          # per-check verification orchestration
 solver_wrapper.py        # cedar validate / cedar symcc invocation
                          # CEDAR_PATH pins /private/tmp/cedar/target/release/cedar
 docs/harness_fix_log.md  # READ FIRST — §3–§8 document all harness rules
-                         # §8.1–§8.10 = the ten novel contributions
+                         # §8.1–§8.11 = the eleven novel contributions
 docs/cegis_algorithm.md  # high-level CEGIS algorithm description
 cedarbench/scenarios/    # 79 mutation scenarios (e.g. github_*, clinical_*)
 cedarbench/scenarios/realworld/  # hand-designed production patterns
@@ -165,10 +165,10 @@ that rely on templates for verification; use the delegation pattern
 ## Dataset state (update on every commit)
 
 **Total scenarios: 121** (79 mutation + 42 realworld)
-**Total PASS: 120/121** (github 14, clinical 11, doccloud 10, streaming 10,
-tax 8, hotel 9, sales 9, tags 7/8, realworld 42)
-**1 FAIL: tags_sensitivity_and_owner** — compound mutation (sensitivity +
-owner bypass), 20/20 syntax/validation oscillation. Legitimately hard.
+**Total PASS: 121/121** (github 14, clinical 11, doccloud 10, streaming 10,
+tax 8, hotel 9, sales 9, tags 8, realworld 42)
+**tags_sensitivity_and_owner** — was 20/20 FAIL, fixed by §8.11 ternary
+operator detector. Now PASS in 12 iters.
 Total harness cost for full 121 run: ~$13.30 (Phase 1 Opus + Phase 2 Haiku).
 
 Realworld scenarios (31, all PASS):

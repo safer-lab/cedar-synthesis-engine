@@ -836,7 +836,40 @@ def _format_syntax_feedback(error_text: str) -> str:
 
         parts.append(f"  Fix ALL occurrences of this pattern throughout your policy.\n")
 
-    return "\n".join(parts)
+    result = "\n".join(parts)
+
+    # ── §8.11 Ternary operator detection ────────────────────────────────
+    # Cedar does NOT have a ternary operator (condition ? then : else).
+    # LLMs reach for it because every C-family language has it. When the
+    # parse error contains `?` as an invalid token, emit a positive
+    # template showing the correct boolean-logic form.
+    if "?" in error_text and ("invalid token" in error_text or "unexpected token" in error_text):
+        result += """
+
+**CEDAR DOES NOT HAVE A TERNARY OPERATOR.**
+You wrote `(condition) ? (result) : fallback` — this is NOT valid Cedar syntax.
+Cedar uses boolean logic instead. Replace EVERY ternary expression with:
+
+WRONG:
+```
+(A && B) ? (C) : true
+```
+
+CORRECT (use boolean implication):
+```
+(!(A && B) || (A && B && C))
+```
+
+Or equivalently:
+```
+(!(A) || !(B) || (A && B && C))
+```
+
+This pattern means "if A and B both hold, then C must also hold; otherwise the condition is vacuously true."
+Replace ALL ternary operators (`?` ... `:`) in your entire policy with this boolean form.
+Do NOT use `?` or `:` as operators anywhere — they are not part of Cedar's grammar."""
+
+    return result
 
 
 def _format_validation_feedback(error_text: str) -> str:
