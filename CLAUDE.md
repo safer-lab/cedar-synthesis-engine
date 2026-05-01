@@ -164,12 +164,70 @@ that rely on templates for verification; use the delegation pattern
 
 ## Dataset state (update on every commit)
 
-**Total scenarios: 121** (79 mutation + 42 realworld)
-**Total PASS: 121/121** (github 14, clinical 11, doccloud 10, streaming 10,
-tax 8, hotel 9, sales 9, tags 8, realworld 42)
-**tags_sensitivity_and_owner** — was 20/20 FAIL, fixed by §8.11 ternary
-operator detector. Now PASS in 12 iters.
-Total harness cost for full 121 run: ~$13.30 (Phase 1 Opus + Phase 2 Haiku).
+**Total scenarios: 221** (79 mutation + 142 realworld)
+**Tested PASS so far: 121/121** original benchmark (committed before v2 extension).
+**Untested: 100 v2-extension hard scenarios** (built but not yet run through
+harness — done in 10 batches per `cedarbench/PROPOSED_HARD_SCENARIOS.md`).
+
+**Original 121:** github 14, clinical 11, doccloud 10, streaming 10, tax 8,
+hotel 9, sales 9, tags 8, realworld 42. Total cost: ~$13.30.
+
+**v2 extension (100 scenarios, batches in `PROPOSED_HARD_SCENARIOS.md`):**
+- Batch 1 (Cedar features): entity_tags_with_hastag, decimal_currency_comparison,
+  ipaddr_corporate_network, if_then_else_decision_tree, five_way_role_intersection,
+  recurring_maintenance_window, hipaa_minimum_necessary, mega_scale_500_checks,
+  adversarial_oscillation_bait, regression_battery_all_traps
+- Batch 2 (temporal+adversarial): age_verification_leap_years, anti_transitive_delegation,
+  four_level_unless_chain, n_of_m_signature_withdrawal, sox_three_role_sod,
+  itar_us_persons_only, like_with_escape_chars, reserved_keyword_attr_name,
+  deceptive_progress_signal, oop_prior_trap
+- Batch 3 (compliance): ferpa_age_18_transition, pci_dss_cde_boundary,
+  gdpr_purpose_limitation, coppa_under_13, aml_kyc_tiered, gdpr_dpia_required,
+  purpose_bound_field_access, compound_attestation_multi_signer,
+  stale_cache_invalidation, quorum_attestation
+- Batch 4 (Cedar feature completion): ipaddr_ipv6_mixed, enumerated_status_entity,
+  common_type_definitions, union_principal_types, action_group_multi_inheritance,
+  long_arithmetic_overflow_avoidance, decimal_precision_boundary,
+  empty_set_vacuous_truth, homogeneous_set_type_mismatch, action_without_resource_applies_to
+- Batch 5 (temporal complexity): rolling_rate_limit_window, business_hours_user_timezone,
+  multi_cert_chain_validity, delegation_chain_expiry_dual, cascading_session_expiry,
+  embargo_by_region, duration_arithmetic_composition, recurring_weekly_blackout,
+  time_decay_permissions, grace_period_three_tier
+- Batch 6 (role advanced): three_way_mutual_exclusion, context_scoped_admin,
+  role_elevation_with_attestation, hierarchical_override_three_levels,
+  priority_based_role_resolution, cert_required_role_activation,
+  role_composition_from_attributes, dual_owner_joint_consent,
+  conditional_role_activation, role_set_intersection_required
+- Batch 7 (conflict precedence): five_orthogonal_forbids, default_scope_mismatch,
+  exception_to_exception_emergency, conflicting_attestation_sources,
+  whitelist_and_blacklist, union_semantics_adversarial,
+  forbid_with_specific_exception, revocation_cascade_reinstatement,
+  multi_forbid_floor_consistency, ordered_override_resolution
+- Batch 8 (scale stress): mega_scale_1000_checks, twenty_action_workflow,
+  fifty_role_matrix, ten_level_hierarchy, five_namespace_coordination,
+  long_permit_25_conditions, fifteen_optional_context, wide_set_50_elements,
+  hundred_tenant_isolation, action_with_many_principals
+- Batch 9 (planner traps): ambiguous_spec_most_restrictive,
+  contradicting_requirements_literal, missing_edge_case_empty_set,
+  implicit_deny_by_default, partial_spec_pattern_extrapolation,
+  counterintuitive_admin_no_edit, priority_ordered_requirements,
+  tacit_domain_convention, redundant_spec_single_rule, hypothetical_exception_unspecified
+- Batch 10 (meta adversarial): plateau_landscape_many_equal, red_herring_attributes,
+  hidden_simple_gotcha, specification_ambiguity_needs_counterexample,
+  five_equivalent_formulations, decoy_trivial_properties,
+  causal_predecessor_chain, nonce_replay_prevention, quiescence_window,
+  inverted_default_permit
+
+Cedar findings discovered while building v2:
+- §8.3 negated-has trap also applies to `hasTag`
+- duration has no +/- arithmetic; use `.toMilliseconds()` + Long arithmetic
+- Reserved keyword attrs: `in`, `has`, `like`, `if`, `then`, `else`, `is` REJECTED;
+  `permit`, `forbid`, `principal`, `action`, `resource`, `when`, `unless` ACCEPTED
+- Cedar accepts `entity Status enum [...]` syntax
+- Common types support nested aliases (`type X using type Y`)
+- Actions cannot have empty resource list — use sentinel entities
+- Namespace + entities + actions must all be in single block per namespace name
+- `__cedar::` namespace rejected at lexer level
 
 Realworld scenarios (31, all PASS):
 1. emergency_break_glass — PASS
