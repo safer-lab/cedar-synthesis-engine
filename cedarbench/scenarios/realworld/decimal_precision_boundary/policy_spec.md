@@ -7,6 +7,7 @@ features:
   - precision boundaries
   - financial threshold enforcement
 domain: finance / banking
+synthesis_difficulty: 3
 ---
 
 # Decimal Precision Boundary -- Policy Specification

@@ -7,6 +7,7 @@ features:
   - role-based access with age-conditional revocation
   - parental rights transfer
 domain: education / regulatory compliance
+synthesis_difficulty: 4
 ---
 
 # FERPA Age-18 Transition -- Policy Specification

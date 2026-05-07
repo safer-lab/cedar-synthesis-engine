@@ -6,6 +6,7 @@ features:
   - owner-based privileged access
   - role hierarchy
 domain: legal
+synthesis_difficulty: 2
 ---
 
 # Matter-Based Legal Access -- Policy Specification

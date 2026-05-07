@@ -8,6 +8,7 @@ features:
   - remove public access
 domain: document management
 source: mutation (doccloud domain)
+synthesis_difficulty: 1
 ---
 
 # Document Cloud Permissions -- Policy Specification

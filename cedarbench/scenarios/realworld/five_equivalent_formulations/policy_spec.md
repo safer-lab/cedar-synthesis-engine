@@ -7,6 +7,7 @@ features:
   - set-of-one membership form
   - integer comparison vs equality
 domain: tiered document access
+synthesis_difficulty: 3
 ---
 
 # Five Equivalent Formulations — Policy Specification

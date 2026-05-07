@@ -7,6 +7,7 @@ features:
   - client profiles
 domain: finance / tax preparation
 source: mutation (tax domain)
+synthesis_difficulty: 3
 ---
 
 # Tax Preparer — Policy Specification

@@ -7,6 +7,7 @@ features:
   - loyalty tiers
 domain: hospitality / hotel chains
 source: mutation (hotel domain)
+synthesis_difficulty: 3
 ---
 
 # Hotel Chains — Policy Specification

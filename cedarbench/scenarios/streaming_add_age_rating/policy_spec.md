@@ -8,6 +8,7 @@ features:
   - age rating numeric check
 domain: media / streaming
 source: mutation (streaming domain)
+synthesis_difficulty: 3
 ---
 
 # Streaming Service — Policy Specification

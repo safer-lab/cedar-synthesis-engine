@@ -8,6 +8,7 @@ features:
   - remove bedtime restriction
 domain: media / streaming
 source: mutation (streaming domain)
+synthesis_difficulty: 2
 ---
 
 # Streaming Service — Policy Specification

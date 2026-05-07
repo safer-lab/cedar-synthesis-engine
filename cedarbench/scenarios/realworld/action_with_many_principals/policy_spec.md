@@ -7,6 +7,7 @@ features:
   - heterogeneous attributes across principal types
   - disjunctive ceiling that composes 6 type-specific predicates
 domain: API platform / universal gateway
+synthesis_difficulty: 3
 ---
 
 # Universal API Gateway — Policy Specification

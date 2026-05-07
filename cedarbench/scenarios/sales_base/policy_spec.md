@@ -7,6 +7,7 @@ features:
   - customer restrictions
 domain: enterprise sales / CRM
 source: mutation (sales domain)
+synthesis_difficulty: 3
 ---
 
 # Sales Organization — Policy Specification

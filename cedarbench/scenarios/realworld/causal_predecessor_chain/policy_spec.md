@@ -8,6 +8,7 @@ features:
   - separation of duties (predecessor.actor != principal)
   - string equality on actionType
 domain: workflow / compliance
+synthesis_difficulty: 3
 ---
 
 # Causal Predecessor Chain — Policy Specification

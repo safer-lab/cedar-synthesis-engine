@@ -7,6 +7,7 @@ features:
   - classification-based access restriction
   - hierarchy-level-based permissions (division heads vs department heads)
 domain: enterprise / HR
+synthesis_difficulty: 2
 ---
 
 # Deep Entity Hierarchy — Policy Specification

@@ -6,6 +6,7 @@ features:
   - Set<String> membership on resource
   - three-state distinction (missing / invalid / valid)
 domain: API security
+synthesis_difficulty: 3
 ---
 
 # Nonce Replay Prevention -- Single-Use Token Authorization

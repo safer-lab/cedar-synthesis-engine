@@ -6,6 +6,7 @@ features:
   - boolean attestation
   - scope-based action filtering
 domain: API platform
+synthesis_difficulty: 2
 ---
 
 # Webhook Signature Verification -- Outbound M2M Delivery Authorization

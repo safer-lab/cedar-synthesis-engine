@@ -6,6 +6,7 @@ features:
   - Per-action status constraints (cart / pending / shipped / delivered / refunded)
   - ~157 verification checks (3-5x larger than any prior scenario)
 domain: e-commerce back-office, meta-harness test
+synthesis_difficulty: 3
 ---
 
 # Hundred-Check Scale — E-Commerce Back-Office Policy

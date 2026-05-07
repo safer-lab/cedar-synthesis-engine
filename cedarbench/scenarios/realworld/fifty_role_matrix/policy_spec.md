@@ -6,6 +6,7 @@ features:
   - all-permit baseline (correct policy: permit when role in 50 strings)
   - smaller than mega_scale_500 in cells but larger role count
 domain: enterprise RBAC at scale
+synthesis_difficulty: 3
 ---
 
 # Fifty-Role Matrix — Policy Specification

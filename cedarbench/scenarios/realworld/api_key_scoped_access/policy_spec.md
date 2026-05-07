@@ -8,6 +8,7 @@ features:
   - submitted-invoice read-only override
   - organization-level tenant isolation
 domain: API platforms, integrations, third-party SaaS
+synthesis_difficulty: 2
 ---
 
 # API Key Scoped Access — Policy Specification

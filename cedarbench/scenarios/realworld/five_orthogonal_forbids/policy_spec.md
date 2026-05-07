@@ -8,6 +8,7 @@ features:
   - context attribute gates (outsideBusinessHours, rateLimited)
   - floor / ceiling joint-satisfiability stress (§8.8)
 domain: defense in depth / multi-factor access control
+synthesis_difficulty: 3
 ---
 
 # Five Orthogonal Forbids — Policy Specification

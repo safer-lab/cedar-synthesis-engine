@@ -7,6 +7,7 @@ features:
   - optional record context attributes (has-guards required)
   - duration-based freshness window
 domain: finance / shared assets
+synthesis_difficulty: 4
 ---
 
 # Dual-Owner Joint Consent — Policy Specification

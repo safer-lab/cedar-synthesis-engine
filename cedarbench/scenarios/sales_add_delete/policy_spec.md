@@ -8,6 +8,7 @@ features:
   - delete action
 domain: enterprise sales / CRM
 source: mutation (sales domain)
+synthesis_difficulty: 2
 ---
 
 # Sales Organization Permissions -- Policy Specification

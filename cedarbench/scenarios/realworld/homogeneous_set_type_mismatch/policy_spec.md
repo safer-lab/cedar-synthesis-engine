@@ -7,6 +7,7 @@ features:
   - `principal in [...]` with explicit Group entity list
   - `Set<String>.containsAny([...])` with string literal set
 domain: collaboration / group access
+synthesis_difficulty: 3
 ---
 
 # Homogeneous Set Type Mismatch — Policy Specification

@@ -8,6 +8,7 @@ features:
   - role-based exclusion ("guest")
   - boolean precondition (sessionActive)
 domain: identity / session management
+synthesis_difficulty: 3
 ---
 
 # Action Without Resource appliesTo -- Session Management

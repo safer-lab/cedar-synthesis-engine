@@ -6,6 +6,7 @@ features:
   - "@description" annotation on each policy rule
   - simple RBAC baseline to keep semantic complexity low
 domain: content management
+synthesis_difficulty: 1
 ---
 
 # Policy Annotations — Policy Specification

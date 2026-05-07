@@ -6,6 +6,7 @@ features:
   - three-tier role hierarchy (owner > delegate > member)
   - per-action role gating
 domain: enterprise email
+synthesis_difficulty: 2
 ---
 
 # Shared Inbox Delegation -- Policy Specification

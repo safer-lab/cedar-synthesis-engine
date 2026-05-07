@@ -8,6 +8,7 @@ features:
   - .isInRange() CIDR containment
   - .isLoopback() classification
 domain: data center / network access control
+synthesis_difficulty: 3
 ---
 
 # Dual-Stack Data Center Access — Policy Specification

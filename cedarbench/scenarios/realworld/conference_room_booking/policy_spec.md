@@ -6,6 +6,7 @@ features:
   - capacity-based access (room size vs group size)
   - role-based priority booking
 domain: workplace SaaS
+synthesis_difficulty: 2
 ---
 
 # Conference Room Booking — Policy Specification

@@ -8,6 +8,7 @@ features:
   - datetime-based embargo
 domain: healthcare / clinical trials
 source: mutation (clinical domain)
+synthesis_difficulty: 3
 ---
 
 # Clinical Trial Data Platform -- Policy Specification

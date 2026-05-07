@@ -6,6 +6,7 @@ features:
   - glob wildcard vs regex distinction
   - role-gated path patterns
 domain: file-storage / document-management systems
+synthesis_difficulty: 3
 ---
 
 # File-Path ACL with Literal Special Characters — Policy Specification

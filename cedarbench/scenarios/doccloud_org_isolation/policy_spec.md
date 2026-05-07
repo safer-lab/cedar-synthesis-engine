@@ -8,6 +8,7 @@ features:
   - organization isolation with blocking
 domain: document management
 source: mutation (doccloud domain)
+synthesis_difficulty: 3
 ---
 
 # Document Cloud Permissions -- Policy Specification

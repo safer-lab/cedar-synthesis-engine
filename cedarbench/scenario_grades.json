@@ -1,0 +1,886 @@
+{
+  "action_group_multi_inheritance": {
+    "synthesis_difficulty": 3,
+    "rationale": "Action groups with multi-parent inheritance (ReadOnly/AuditLogged/Destructive) composing conjunctively."
+  },
+  "action_with_many_principals": {
+    "synthesis_difficulty": 3,
+    "rationale": "Six principal types in `appliesTo` with `is`-narrowing for per-type attribute access."
+  },
+  "action_without_resource_applies_to": {
+    "synthesis_difficulty": 3,
+    "rationale": "Sentinel `Session` resource pattern for resource-less actions (Cedar requires non-empty `resource:` list)."
+  },
+  "adversarial_oscillation_bait": {
+    "synthesis_difficulty": 4,
+    "rationale": "Engineered to stress \u00a78.1/\u00a78.2/\u00a78.6/\u00a78.8: each naive fix trades one violation for another."
+  },
+  "age_verification_leap_years": {
+    "synthesis_difficulty": 4,
+    "rationale": "Hand-computed conservative day thresholds for 13/18/21-year ages + Go-style duration literals."
+  },
+  "ambiguous_spec_most_restrictive": {
+    "synthesis_difficulty": 4,
+    "rationale": "Hedged language (`typically`, `may sometimes`) read as most-restrictive (`requires explicit grant`)."
+  },
+  "aml_kyc_tiered": {
+    "synthesis_difficulty": 3,
+    "rationale": "Tiered KYC matrix (SDD/CDD/EDD) with amount bands + UBO/adverse-media conjunction at high amounts."
+  },
+  "anti_transitive_delegation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `delegationGrant` with has-guard + depth==1 strict equality + per-action scoping."
+  },
+  "api_key_scoped_access": {
+    "synthesis_difficulty": 2,
+    "rationale": "Per-action scope-string mapping + expiry/revocation forbids + submitted-invoice forbid."
+  },
+  "approval_chain_workflow": {
+    "synthesis_difficulty": 3,
+    "rationale": "Five actions over a state machine with `containsAll` for unanimous-consent finalize and terminal-state forbid."
+  },
+  "audit_log_immutability": {
+    "synthesis_difficulty": 2,
+    "rationale": "Role-based append/read/export with unconditional delete and modify forbids."
+  },
+  "backup_restore_asymmetric": {
+    "synthesis_difficulty": 2,
+    "rationale": "Role + boolean asymmetry for backup vs restore-to-prod requiring on-call."
+  },
+  "business_hours_user_timezone": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime offset by user-supplied timezone duration + `.toTime()` time-of-day extraction."
+  },
+  "cascading_session_expiry": {
+    "synthesis_difficulty": 3,
+    "rationale": "Two-datetime min-of via conjunctive form (Cedar has no `min`); entity in context."
+  },
+  "causal_predecessor_chain": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `predecessorAuthorized` record with has-guard + sequential workflow + separation-of-duties on approve."
+  },
+  "cert_required_role_activation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional record-typed `cert` with triple has-guard chain (validUntil, claimedRole, signer)."
+  },
+  "ci_cd_deployment_gate": {
+    "synthesis_difficulty": 2,
+    "rationale": "Per-environment role threshold + boolean test-pass gate; small rule set."
+  },
+  "clinical_add_consent": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one extra forbid (no consent \u2192 no edit). Single delta from base."
+  },
+  "clinical_add_datamanager": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one role with clear bullet rules; reuses existing forbid structure."
+  },
+  "clinical_add_export": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds a new action that follows existing constraints plus one extra device-compliance gate."
+  },
+  "clinical_add_sponsor": {
+    "synthesis_difficulty": 3,
+    "rationale": "New role + cross-dept exception scoped to View only + Phase-3 gate; multiple interacting permits."
+  },
+  "clinical_add_study_phase": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds a single Phase-3 permit gate for PIs only."
+  },
+  "clinical_base": {
+    "synthesis_difficulty": 2,
+    "rationale": "Foundational MLS spec with role/clearance/classification + cross-dept forbid w/ auditor unless. Bullet-list form, names attributes inline."
+  },
+  "clinical_dual_forbid": {
+    "synthesis_difficulty": 3,
+    "rationale": "Two independent forbids with different exemption scopes (auditor exempts dept, no exempt for device)."
+  },
+  "clinical_full_expansion": {
+    "synthesis_difficulty": 3,
+    "rationale": "Three forbids stacked (cross-dept, consent, device-compliance) with role-keyed exceptions."
+  },
+  "clinical_relax_clearance": {
+    "synthesis_difficulty": 1,
+    "rationale": "Single operator change (>=3 instead of >3); trivial delta from base."
+  },
+  "clinical_remove_auditor": {
+    "synthesis_difficulty": 1,
+    "rationale": "Removes the auditor-loophole unless clause; pure deletion."
+  },
+  "clinical_temporal_embargo": {
+    "synthesis_difficulty": 3,
+    "rationale": "Long-timestamp forbid with PI exception layered onto existing dual-forbid base."
+  },
+  "common_type_definitions": {
+    "synthesis_difficulty": 3,
+    "rationale": "Schema common type aliases (`type Address = ...`) with 3-deep nested record access (`resource.contact.address.country`)."
+  },
+  "compliance_training_gate": {
+    "synthesis_difficulty": 2,
+    "rationale": "`completedTrainings.containsAll(requiredTrainings)` + sensitive-export forbid + manager-config gate."
+  },
+  "compound_attestation_multi_signer": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three optional record-typed attestations with has-guards + 9-clause conjunction including pairwise-distinct check."
+  },
+  "conditional_role_activation": {
+    "synthesis_difficulty": 2,
+    "rationale": "Three-conjunct adminConfig gate (homeRole + connectedFromOffice + officeNetworkAuth)."
+  },
+  "conference_room_booking": {
+    "synthesis_difficulty": 2,
+    "rationale": "datetime + capacity check + level threshold; small rule set."
+  },
+  "conflicting_attestation_sources": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `claimedOwner` with has-guard + cross-source consistency (record-of-truth vs request-claim)."
+  },
+  "content_moderation_escalation": {
+    "synthesis_difficulty": 4,
+    "rationale": "Took 10 iterations in v1 (the hardest realworld); severity-bracketed clearance disjunction with overlapping cells confuses repair signal."
+  },
+  "context_scoped_admin": {
+    "synthesis_difficulty": 2,
+    "rationale": "`adminOf.contains(resource.tenant)` per action; role string is informational only."
+  },
+  "contextual_mfa_elevation": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime/duration `durationSince < 15m` for sensitive actions + workspace isolation; \u00a78.9 territory."
+  },
+  "contradicting_requirements_literal": {
+    "synthesis_difficulty": 4,
+    "rationale": "Literal contradiction in spec (always vs never) requiring precedence-rule resolution; \u00a78.8 stress."
+  },
+  "coppa_under_13": {
+    "synthesis_difficulty": 4,
+    "rationale": "datetime + duration age threshold + optional `parentalConsentToken` has-guard + asymmetric collect/share rules + COPPA-stricter sharing rule."
+  },
+  "counterintuitive_admin_no_edit": {
+    "synthesis_difficulty": 4,
+    "rationale": "RBAC prior resistance: auditAdmin is read-only despite the name; positive-permit encoding to avoid prior."
+  },
+  "customer_support_ticket_escalation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Priority gating + escalated-ticket close guard + manager-only reassign."
+  },
+  "data_lineage_ancestry": {
+    "synthesis_difficulty": 3,
+    "rationale": "Public<internal<restricted clearance hierarchy + boolean PII gate + department-scoped derive/delete."
+  },
+  "deceptive_progress_signal": {
+    "synthesis_difficulty": 4,
+    "rationale": "3\u00d73 role/action matrix engineered as oscillation trap; near-symmetric cells with subject-scope asymmetry."
+  },
+  "decimal_currency_comparison": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar `decimal` extension with method-style `.lessThan` + per-role tier + accumulated daily limit."
+  },
+  "decimal_precision_boundary": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar `decimal` extension with method-style comparisons; representable-range awareness."
+  },
+  "decoy_trivial_properties": {
+    "synthesis_difficulty": 3,
+    "rationale": "Trivially-true floors mixed with substantive ones; tests harness counting + reporting."
+  },
+  "deep_entity_hierarchy": {
+    "synthesis_difficulty": 2,
+    "rationale": "Five-level hierarchy with transitive `in`; classification-gated read."
+  },
+  "default_scope_mismatch": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cross-tenant unconditional forbid + tenant-scope default-deny override by user-scope admin role."
+  },
+  "delegation_chain_expiry_dual": {
+    "synthesis_difficulty": 4,
+    "rationale": "Two optional record-typed grants with has-guards + chain-of-trust continuity + dual datetime windows."
+  },
+  "delegation_temporary_grant": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `activeGrant` with has-guard + datetime expiry + per-action allowedAction string match."
+  },
+  "doccloud_add_admin_group": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds manageACL bypass on blocking forbid; forbid/unless interaction."
+  },
+  "doccloud_add_comment_acl": {
+    "synthesis_difficulty": 2,
+    "rationale": "New CommentOnDocument action with clear ACL conditions."
+  },
+  "doccloud_add_expiry": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds expiry forbid with owner+DeleteDocument exception unless clause."
+  },
+  "doccloud_add_version_lock": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one boolean forbid on isLocked."
+  },
+  "doccloud_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "Multi-ACL doc cloud baseline with mutual blocking and Public-principal `principal has blocked` guard; foundational complexity."
+  },
+  "doccloud_graduated_sharing": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds 3-tier publicAccess and ViewMetadata action; clear bullet rules."
+  },
+  "doccloud_org_isolation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cross-entity org-mismatch forbid with manageACL exception unless clause."
+  },
+  "doccloud_remove_blocking": {
+    "synthesis_difficulty": 1,
+    "rationale": "Removes the blocking forbids; pure deletion."
+  },
+  "doccloud_remove_public": {
+    "synthesis_difficulty": 1,
+    "rationale": "Removes public-access permits; pure deletion."
+  },
+  "doccloud_temporal_sharing": {
+    "synthesis_difficulty": 3,
+    "rationale": "Stacks shareExpiry forbid (with owner exception) on top of version-lock forbid."
+  },
+  "document_versioning_lock": {
+    "synthesis_difficulty": 3,
+    "rationale": "Lock-bypass condition (`!isLocked || lockedBy == principal`) + admin unlock-break + draft-only publish."
+  },
+  "dual_owner_joint_consent": {
+    "synthesis_difficulty": 4,
+    "rationale": "Two optional record consents + order-symmetric matching + 24h freshness + has-guard discipline."
+  },
+  "duration_arithmetic_composition": {
+    "synthesis_difficulty": 4,
+    "rationale": "`duration.toMilliseconds()` for arithmetic (Cedar duration has no +/-) + sign guards on `durationSince`."
+  },
+  "educational_gradebook": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `parentOf` with has-guard + role + class scoping + isFinal edit gate."
+  },
+  "embargo_by_region": {
+    "synthesis_difficulty": 3,
+    "rationale": "Per-region datetime branching (no dynamic record key access) + 24h anti-leak buffer for download."
+  },
+  "emergency_break_glass": {
+    "synthesis_difficulty": 2,
+    "rationale": "Bullet-list spec with same-hospital baseline forbid + narrowly-scoped break-glass permit (3 conditions)."
+  },
+  "empty_set_vacuous_truth": {
+    "synthesis_difficulty": 4,
+    "rationale": "`[].containsAll(X) == true` vacuous-truth trap: must guard with `!isEmpty()` or default-deny is silently broken."
+  },
+  "entity_tags_with_hastag": {
+    "synthesis_difficulty": 4,
+    "rationale": "Cedar entity tags (RFC 0082): hasTag/getTag with negated-has trap (\u00a78.3-style) on multiple tag reads."
+  },
+  "enumerated_status_entity": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar enumerated entity type (`Status::active`) with `==` comparison; closed EID set."
+  },
+  "exception_to_exception_emergency": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three-tier when/unless override chain (lockout \u2192 break-glass \u2192 security lockdown trumps all)."
+  },
+  "feature_flag_rollout": {
+    "synthesis_difficulty": 2,
+    "rationale": "Numeric rolloutBucket < rolloutPercentage + role override + isEnabled gate."
+  },
+  "ferpa_age_18_transition": {
+    "synthesis_difficulty": 4,
+    "rationale": "datetime + duration day-threshold for age-of-majority + role-based access asymmetry."
+  },
+  "fifteen_optional_context": {
+    "synthesis_difficulty": 4,
+    "rationale": "Fifteen optional context booleans with conjunction over 5 specific has-guarded reads; \u00a78.3 stress."
+  },
+  "fifty_role_matrix": {
+    "synthesis_difficulty": 3,
+    "rationale": "50 roles \u00d7 10 actions all-permit; scale stress."
+  },
+  "five_equivalent_formulations": {
+    "synthesis_difficulty": 3,
+    "rationale": "Canonical-form invariance: 5 equivalent encodings (de Morgan, if-then-else, set-of-one) all acceptable."
+  },
+  "five_namespace_coordination": {
+    "synthesis_difficulty": 3,
+    "rationale": "Five top-level namespaces with cross-namespace entity-type references; qualified-name handling at scale."
+  },
+  "five_orthogonal_forbids": {
+    "synthesis_difficulty": 3,
+    "rationale": "Five independent boolean forbid conditions composed conjunctively over two actions."
+  },
+  "five_way_role_intersection": {
+    "synthesis_difficulty": 4,
+    "rationale": "Multi-role principals (primary + secondary set); \u00a78.6 trap stress with 5 roles \u00d7 5 actions \u00d7 4 categories."
+  },
+  "forbid_with_specific_exception": {
+    "synthesis_difficulty": 3,
+    "rationale": "Weakened-forbid idiom: must encode owner exception inside the forbid `when`, not as a competing permit."
+  },
+  "four_level_unless_chain": {
+    "synthesis_difficulty": 4,
+    "rationale": "Four-tier when/unless flattening into a single permit; \u00a78.11 ternary trap territory."
+  },
+  "gdpr_data_retention": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime retention + erasure-flag + role-based read/process/delete/audit asymmetry."
+  },
+  "gdpr_dpia_required": {
+    "synthesis_difficulty": 4,
+    "rationale": "Optional `dpiaCompletedDate` datetime with has-guard + duration `< 365d` freshness + risk-level branching."
+  },
+  "gdpr_purpose_limitation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Set-membership purpose check + optional `compatibleUseApproval` with has-guard + per-action role gating."
+  },
+  "github_add_close_issue": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds close action with familiar dual-path (writer/reporter) pattern."
+  },
+  "github_add_contributor": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one role with single push permit, no interactions."
+  },
+  "github_add_locked_issue": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one boolean forbid on isLocked for edit_issue only."
+  },
+  "github_add_private": {
+    "synthesis_difficulty": 1,
+    "rationale": "Adds one boolean forbid on isPrivate for fork only."
+  },
+  "github_add_pullrequest": {
+    "synthesis_difficulty": 3,
+    "rationale": "New PullRequest entity with self-approval forbid plus archive-bypass extension."
+  },
+  "github_add_security_admin": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds securityAdmin role with archive-bypass for push only via unless."
+  },
+  "github_add_visibility": {
+    "synthesis_difficulty": 2,
+    "rationale": "3-value visibility String with two equivalent forbids on fork."
+  },
+  "github_base": {
+    "synthesis_difficulty": 2,
+    "rationale": "Foundational RBAC with role tiers, archive-block forbid, dual-path issue ops; bullet-list spec."
+  },
+  "github_full_expansion": {
+    "synthesis_difficulty": 3,
+    "rationale": "Six roles, three forbids, two new entity types (PR, Issue) with archive cascade."
+  },
+  "github_no_archive": {
+    "synthesis_difficulty": 1,
+    "rationale": "Removes the archive forbid; pure deletion."
+  },
+  "github_numeric_constraints": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds two numeric forbids (collaborator limit, account-age push restriction)."
+  },
+  "github_pr_review_workflow": {
+    "synthesis_difficulty": 3,
+    "rationale": "Three new entity types with cross-traversal + self-exclusion forbid + archive cascade."
+  },
+  "github_private_and_locked": {
+    "synthesis_difficulty": 3,
+    "rationale": "Compound: archive + private + locked forbids on different entities and actions."
+  },
+  "github_remove_triager": {
+    "synthesis_difficulty": 1,
+    "rationale": "Removes triager role and merges its assign action into writer; pure deletion."
+  },
+  "grace_period_three_tier": {
+    "synthesis_difficulty": 3,
+    "rationale": "Four-tier datetime interval partition with half-open boundaries (inclusive-start, exclusive-end)."
+  },
+  "group_chat_moderator": {
+    "synthesis_difficulty": 5,
+    "rationale": "Required \u00a78.10 \u2014 entity-graph membership liveness. `principal in resource` is opaque to symcc; switched to `resource.members.contains(principal)`."
+  },
+  "hidden_simple_gotcha": {
+    "synthesis_difficulty": 4,
+    "rationale": "Two ownership fields (`creator` vs `currentOwner`) with hidden creator-retention invariant requiring schema inference."
+  },
+  "hierarchical_override_three_levels": {
+    "synthesis_difficulty": 3,
+    "rationale": "Per-(level, category) cell encoding to avoid \u00a78.6 + senior-cannot-execute-restricted asymmetry."
+  },
+  "hipaa_minimum_necessary": {
+    "synthesis_difficulty": 4,
+    "rationale": "Role-purpose-category 3-way matrix + optional `patientAuthorized` has-guard + per-action carve-outs."
+  },
+  "homogeneous_set_type_mismatch": {
+    "synthesis_difficulty": 3,
+    "rationale": "Set literal homogeneity validator constraint: entity-set vs string-set must not mix."
+  },
+  "hotel_add_cancel": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds cancelReservation matching member/admin permit pattern."
+  },
+  "hotel_add_franchise": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds 4th hierarchy level (Franchise) with cascade through hotel/property/reservation."
+  },
+  "hotel_add_guest": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds Guest entity type with single permission via reservation set membership."
+  },
+  "hotel_add_loyalty_tier": {
+    "synthesis_difficulty": 2,
+    "rationale": "One numeric forbid (loyaltyTier < 3) gating createReservation on premium properties."
+  },
+  "hotel_add_renovation_lock": {
+    "synthesis_difficulty": 2,
+    "rationale": "One boolean forbid with admin override for createReservation."
+  },
+  "hotel_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "PermissionsMap nested record with view/member/admin tiers, multi-action surface, role-inheritance pattern; foundational complexity."
+  },
+  "hotel_franchise_loyalty": {
+    "synthesis_difficulty": 3,
+    "rationale": "Compound: 4-level hierarchy + renovation forbid (with admin override) + loyalty forbid (no override)."
+  },
+  "hotel_remove_hierarchy": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes Property-in-Hotel cascade; rules become non-cascading per level."
+  },
+  "hotel_temporal_rates": {
+    "synthesis_difficulty": 3,
+    "rationale": "Long-timestamp seasonal forbid on viewRates with admin override unless."
+  },
+  "hundred_check_scale": {
+    "synthesis_difficulty": 3,
+    "rationale": "10-role \u00d7 10-action matrix with status constraints; ~157 verification checks (scale, not depth)."
+  },
+  "hundred_tenant_isolation": {
+    "synthesis_difficulty": 3,
+    "rationale": "100 distinct per-tenant floors over a single string-equality permit; scale stress."
+  },
+  "hypothetical_exception_unspecified": {
+    "synthesis_difficulty": 2,
+    "rationale": "Hedged `normally / rare exceptions handled separately`; planner must NOT invent unspecified attributes."
+  },
+  "if_then_else_decision_tree": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar expression-level if-then-else (an alternative to disjunctive desugaring); severity- and category-tiered clearances."
+  },
+  "implicit_deny_by_default": {
+    "synthesis_difficulty": 2,
+    "rationale": "Bullet-list of allowed (role, action) combinations; clear positive permits only."
+  },
+  "incident_response_war_room": {
+    "synthesis_difficulty": 3,
+    "rationale": "Severity-to-clearance mapping (sev1\u21923, sev2\u21922, sev3\u21921) with active/resolved log access asymmetry."
+  },
+  "intentional_planner_contradiction": {
+    "synthesis_difficulty": 4,
+    "rationale": "Engineered \u00a78.8 floor-bound consistency regression test; self-blocking corner case requires floor exclusion."
+  },
+  "inventory_warehouse_zone": {
+    "synthesis_difficulty": 3,
+    "rationale": "Zone equality + `all` wildcard + hazardous-supervisor escalation encoded as positive permit (avoiding \u00a78.6)."
+  },
+  "inverted_default_permit": {
+    "synthesis_difficulty": 3,
+    "rationale": "Permit-by-default + denylist (`!bannedReaders.contains`); inversion of Cedar's deny-by-default model."
+  },
+  "iot_device_auth": {
+    "synthesis_difficulty": 2,
+    "rationale": "Non-User Device principal with capability-set scoping per action."
+  },
+  "ipaddr_corporate_network": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar `ipaddr` extension with CIDR ranges, compromised-subnet exclusion, and admin break-glass."
+  },
+  "ipaddr_ipv6_mixed": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar `ipaddr` extension with `.isIpv4()`/`.isIpv6()`/`.isLoopback()` family-discrimination."
+  },
+  "itar_us_persons_only": {
+    "synthesis_difficulty": 3,
+    "rationale": "Single-valued `citizenshipStatus` enum + deemed-export location check + per-action strictness scaling."
+  },
+  "legal_hold_override_expiry": {
+    "synthesis_difficulty": 3,
+    "rationale": "Multi-action interplay between expiry datetime and legal-hold flag with role-based read/edit/delete asymmetry."
+  },
+  "like_with_escape_chars": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar `like` with literal-asterisk escape; glob vs regex distinction."
+  },
+  "loan_approval_workflow": {
+    "synthesis_difficulty": 3,
+    "rationale": "Numeric `approvalLimit >= amount` + role + `riskRating == high` escalation + state-machine guard."
+  },
+  "long_arithmetic_overflow_avoidance": {
+    "synthesis_difficulty": 4,
+    "rationale": "Overflow-safe `Long` arithmetic encoding (rewrite `a+b<=c` as `a<=c-b`) with explicit guards."
+  },
+  "long_permit_25_conditions": {
+    "synthesis_difficulty": 3,
+    "rationale": "Single permit with 25-clause conjunction across principal/resource/context attributes."
+  },
+  "matter_based_legal_access": {
+    "synthesis_difficulty": 2,
+    "rationale": "`assignedMatters.contains` + privileged-document partner-only restriction."
+  },
+  "medical_prescription_workflow": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `controlledSubstanceVerified` with has-guard + dual-gate fill (isFilled + controlled-only check)."
+  },
+  "mega_scale_1000_checks": {
+    "synthesis_difficulty": 3,
+    "rationale": "50 roles \u00d7 20 actions = 1040 checks; pure scale stress, semantically simple `permit when role in [...]`."
+  },
+  "mega_scale_500_checks": {
+    "synthesis_difficulty": 3,
+    "rationale": "25 roles \u00d7 20 actions; 540 verification checks (scale stress, not semantics)."
+  },
+  "missing_edge_case_empty_set": {
+    "synthesis_difficulty": 4,
+    "rationale": "Planner must add safe-default guards (`!isEmpty()`, `!= \"\"`) the spec did not request."
+  },
+  "multi_cert_chain_validity": {
+    "synthesis_difficulty": 3,
+    "rationale": "6-comparison conjunction over 3 independent cert validity intervals (user/org/CA)."
+  },
+  "multi_factor_resource_unlock": {
+    "synthesis_difficulty": 3,
+    "rationale": "Graduated MFA factors per sensitivity level + role-gated rotate/revoke."
+  },
+  "multi_forbid_floor_consistency": {
+    "synthesis_difficulty": 3,
+    "rationale": "Four global forbids (suspension, hours, MFA, approval); \u00a78.8 floor-bound consistency stress at 4-way boundary."
+  },
+  "multi_tenant_saas": {
+    "synthesis_difficulty": 2,
+    "rationale": "Tenant-isolation permit + narrow global-support cross-tenant read with two context conditions."
+  },
+  "n_of_m_signature_withdrawal": {
+    "synthesis_difficulty": 4,
+    "rationale": "3-of-5 quorum encoded as 10-disjunct enumeration via `containsAll`; no `.size()` operator."
+  },
+  "nested_namespaces": {
+    "synthesis_difficulty": 2,
+    "rationale": "Multi-level qualified names with simple owner/team-manager/level rules."
+  },
+  "nonce_replay_prevention": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `nonce` string with has-guard + Set<String> membership + 3-state distinction (missing/invalid/valid)."
+  },
+  "oop_prior_trap": {
+    "synthesis_difficulty": 4,
+    "rationale": "OOP-flavored entity names that invite invalid Cedar idioms (methods, instanceof, null) \u2014 prior resistance."
+  },
+  "ordered_override_resolution": {
+    "synthesis_difficulty": 3,
+    "rationale": "Priority simulation via guards (`!(principal has customQuota) && ...` on lower-priority rules)."
+  },
+  "partial_spec_pattern_extrapolation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Lead role described only as delta from senior; planner must extrapolate full permission set."
+  },
+  "payroll_separation_of_duties": {
+    "synthesis_difficulty": 3,
+    "rationale": "SoD `principal != resource.initiator` + amount-thresholded role escalation forbid + terminal-state forbid."
+  },
+  "pci_dss_cde_boundary": {
+    "synthesis_difficulty": 3,
+    "rationale": "Data-classification gating with dual `cdeAuthorized` + `cdeMember` requirement and detokenize-only `auditCompliant`."
+  },
+  "pii_data_classification": {
+    "synthesis_difficulty": 3,
+    "rationale": "MLS clearance/classification hierarchy + PII forbid + need-to-know forbid + read/download asymmetry."
+  },
+  "plateau_landscape_many_equal": {
+    "synthesis_difficulty": 4,
+    "rationale": "Exactly-3-of-5 threshold expanded as 10-disjunct enumeration; engineered plateau where violation count is uninformative."
+  },
+  "policy_annotations": {
+    "synthesis_difficulty": 1,
+    "rationale": "Three-role RBAC with `@id`/`@description` annotation requirement."
+  },
+  "priority_based_role_resolution": {
+    "synthesis_difficulty": 3,
+    "rationale": "Multi-role users via `Set<String>` + per-role permits avoiding \u00a78.6 role-intersection trap."
+  },
+  "priority_ordered_requirements": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three-rule priority chain encoded via explicit negation of higher-priority guards on lower-priority rules."
+  },
+  "purpose_bound_field_access": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three separate `Set<String>` per purpose (no dynamic record key access in Cedar) + role-purpose pairing."
+  },
+  "quiescence_window": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime + duration `durationSince > 1h` cooldown + explicit sign-guard against clock skew."
+  },
+  "quorum_attestation": {
+    "synthesis_difficulty": 4,
+    "rationale": "3-of-5 emergency-override quorum via `containsAll` over 10 enumerated subsets (mirrors n_of_m pattern)."
+  },
+  "rate_limit_by_role": {
+    "synthesis_difficulty": 2,
+    "rationale": "Per-tier numeric limits with public/non-public endpoint asymmetry."
+  },
+  "recurring_maintenance_window": {
+    "synthesis_difficulty": 3,
+    "rationale": "Host-supplied window boundaries via datetime offset + role-keyed in-window vs out-of-window split."
+  },
+  "recurring_weekly_blackout": {
+    "synthesis_difficulty": 3,
+    "rationale": "Host-attested boolean `inBlackoutWindow` + role-keyed action routing + optional `blackoutEnds` datetime."
+  },
+  "red_herring_attributes": {
+    "synthesis_difficulty": 4,
+    "rationale": "Schema bloated with 14 irrelevant attributes; only 3 participate in the rule (attribute-focus discipline)."
+  },
+  "redundant_spec_single_rule": {
+    "synthesis_difficulty": 1,
+    "rationale": "Same rule restated three different ways; planner must deduplicate to one permit."
+  },
+  "regression_battery_all_traps": {
+    "synthesis_difficulty": 5,
+    "rationale": "Engineered to require ALL six harness contributions (\u00a78.1/\u00a78.4/\u00a78.6/\u00a78.8/\u00a78.9/\u00a78.11) to fire simultaneously."
+  },
+  "reserved_keyword_attr_name": {
+    "synthesis_difficulty": 3,
+    "rationale": "Attribute names adjacent to Cedar reserved words (inGroup, hasAccess, likedItems, permits)."
+  },
+  "resource_budget_enforcement": {
+    "synthesis_difficulty": 2,
+    "rationale": "Per-tier numeric quota check + tier-gated upgrade action."
+  },
+  "revocation_cascade_reinstatement": {
+    "synthesis_difficulty": 3,
+    "rationale": "Host-attested booleans (`accessAuthorized`, `revocationDetected`) + owner bypass independent of attestation."
+  },
+  "role_composition_from_attributes": {
+    "synthesis_difficulty": 3,
+    "rationale": "No `role` attribute exists; manager is computed inline from 3-conjunct attribute predicate."
+  },
+  "role_elevation_with_attestation": {
+    "synthesis_difficulty": 3,
+    "rationale": "Optional `elevationJustification` with has-guard + non-empty string check + role conjunction."
+  },
+  "role_set_intersection_required": {
+    "synthesis_difficulty": 3,
+    "rationale": "`containsAll` (intersection requirement) vs `containsAny` trap; safety-critical asymmetry."
+  },
+  "rolling_rate_limit_window": {
+    "synthesis_difficulty": 3,
+    "rationale": "Dual-window numeric (per-minute AND per-hour) + cost-multiplier-adjusted budget arithmetic."
+  },
+  "sales_add_approval": {
+    "synthesis_difficulty": 3,
+    "rationale": "Approval-gate forbid layered on top of complex action-group + grant-restriction baseline."
+  },
+  "sales_add_archive": {
+    "synthesis_difficulty": 3,
+    "rationale": "Archive forbid scoped to PrezEditActions group, on top of existing customer/internal forbids."
+  },
+  "sales_add_delete": {
+    "synthesis_difficulty": 2,
+    "rationale": "Owner-only deletePresentation with no context."
+  },
+  "sales_add_regional_manager": {
+    "synthesis_difficulty": 3,
+    "rationale": "New regional_manager role with managedMarkets overlap path on top of customer-restriction forbids."
+  },
+  "sales_add_team": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds Team entity type and viewerTeams/editorTeams sets, mirroring market-template pattern."
+  },
+  "sales_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "Action groups, grant restrictions, optional context targetMarket/targetUser with has-guard discipline; foundational complexity."
+  },
+  "sales_full_expansion": {
+    "synthesis_difficulty": 3,
+    "rationale": "Five forbids (customer, internal, archive, approval, edit-grant) layered with regional manager + delete."
+  },
+  "sales_remove_customer_restriction": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes the customer-grant forbids; deletion + slight rule adjustment."
+  },
+  "sales_temporal_campaign": {
+    "synthesis_difficulty": 3,
+    "rationale": "Long-timestamp campaign-window forbid with non-internal scope and per-action guards."
+  },
+  "set_contains_any": {
+    "synthesis_difficulty": 2,
+    "rationale": "Tag-overlap with `containsAny` + `containsAll`; small rule set."
+  },
+  "shared_inbox_delegation": {
+    "synthesis_difficulty": 2,
+    "rationale": "Three-tier owner > delegate > member with `Set.contains` per action."
+  },
+  "sox_three_role_sod": {
+    "synthesis_difficulty": 4,
+    "rationale": "Two optional context attestations with \u00a78.3 negated-has trap on cross-step SoD checks."
+  },
+  "specification_ambiguity_needs_counterexample": {
+    "synthesis_difficulty": 3,
+    "rationale": "Editor-or-owner OR vs AND ambiguity; floor counterexamples discriminate the readings."
+  },
+  "stale_cache_invalidation": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three different freshness windows (5m/60s/30s) + two optional datetime attrs with has-guards + role gate on delete."
+  },
+  "streaming_add_age_rating": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime/duration base + new age-rating forbid (kid-only string disjunction)."
+  },
+  "streaming_add_download": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime/duration base + new download action with isFree forbid."
+  },
+  "streaming_add_geo_restriction": {
+    "synthesis_difficulty": 3,
+    "rationale": "datetime/duration base + new geo forbid using set containment with negation."
+  },
+  "streaming_add_trial_tier": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds TrialMember entity with trialExpiry datetime check on top of base."
+  },
+  "streaming_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "Cedar datetime/duration extension with kid bedtime forbid using offset/toTime \u2014 \u00a78.9 syntax territory."
+  },
+  "streaming_full_expansion": {
+    "synthesis_difficulty": 4,
+    "rationale": "Four forbids (bedtime, geo, age-rating, free-download) stacked on the datetime/duration baseline; complex composition."
+  },
+  "streaming_multidevice": {
+    "synthesis_difficulty": 3,
+    "rationale": "Per-tier numeric concurrent-stream forbids on top of datetime base."
+  },
+  "streaming_parental_controls": {
+    "synthesis_difficulty": 3,
+    "rationale": "Adds rating hierarchy forbid with explicit string disjunction for parental controls plus bedtime cascade."
+  },
+  "streaming_remove_bedtime": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes the kid-bedtime forbid; deletion."
+  },
+  "streaming_remove_oscars": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes the Oscar promo permit + rent/buy actions; deletion."
+  },
+  "string_prefix_domain_match": {
+    "synthesis_difficulty": 2,
+    "rationale": "Cedar `like` operator with prefix/suffix patterns; small rule set."
+  },
+  "subscription_content_gate": {
+    "synthesis_difficulty": 3,
+    "rationale": "Plan/tier dominance via string disjunction + preview bypass + isActive gate."
+  },
+  "tacit_domain_convention": {
+    "synthesis_difficulty": 3,
+    "rationale": "`Standard RBAC, the usual hierarchy` shorthand: planner must unpack into explicit role inheritance."
+  },
+  "tags_add_approval": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds one isApproved forbid on Update/Delete actions."
+  },
+  "tags_add_fourth_dimension": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds a fourth tag dimension following identical matching pattern."
+  },
+  "tags_add_owner_bypass": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds dual-path Read permit (tag-match OR ownership)."
+  },
+  "tags_add_role_c": {
+    "synthesis_difficulty": 2,
+    "rationale": "Adds new Role-C with same tag-matching pattern and a fresh action."
+  },
+  "tags_add_sensitivity": {
+    "synthesis_difficulty": 3,
+    "rationale": "Per-role sensitivity forbids with different thresholds (>3 vs >1)."
+  },
+  "tags_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "Multi-dimensional tag matching with ALL wildcard, optional attributes, and `containsAll` superset semantics; foundational complexity."
+  },
+  "tags_remove_all_wildcard": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes the ALL-wildcard branches; deletion + simplification."
+  },
+  "tags_sensitivity_and_owner": {
+    "synthesis_difficulty": 5,
+    "rationale": "Required \u00a78.11 ternary detector to converge \u2014 surfaced the mechanism. Owner bypass + per-role sensitivity forbids + approval gate compose into a ternary-shaped expression LLMs reach for naturally."
+  },
+  "tax_add_auditor": {
+    "synthesis_difficulty": 3,
+    "rationale": "New principal type (Auditor) with serviceline-scope permit + universal consent forbid."
+  },
+  "tax_add_client_profile": {
+    "synthesis_difficulty": 3,
+    "rationale": "New action targeting Client with cross-entity org-record matching, separate from consent forbid."
+  },
+  "tax_add_edit": {
+    "synthesis_difficulty": 2,
+    "rationale": "New editDocument action with same access rules as viewDocument."
+  },
+  "tax_add_sensitivity": {
+    "synthesis_difficulty": 3,
+    "rationale": "Compound forbid combining sensitivity boolean with HQ team-region requirement."
+  },
+  "tax_add_supervisor": {
+    "synthesis_difficulty": 3,
+    "rationale": "New Supervisor principal with org-only matching, consent forbid still applies."
+  },
+  "tax_base": {
+    "synthesis_difficulty": 3,
+    "rationale": "Org-info record matching via `assigned_orgs.contains(...)`, consent forbid with template-link compatibility; foundational complexity."
+  },
+  "tax_full_expansion": {
+    "synthesis_difficulty": 3,
+    "rationale": "Three principal types (Professional/Supervisor/Auditor) \u00d7 two actions \u00d7 two forbids."
+  },
+  "tax_remove_consent": {
+    "synthesis_difficulty": 2,
+    "rationale": "Removes the consent forbid; deletion."
+  },
+  "ten_level_hierarchy": {
+    "synthesis_difficulty": 3,
+    "rationale": "Ten-level deep entity-in chain (Org\u2192Co\u2192Region\u2192...\u2192Individual) with attribute-based parentOrg ref for liveness."
+  },
+  "three_way_mutual_exclusion": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three optional context attestations + has-guards + pairwise SoD across submit/approve/audit."
+  },
+  "time_decay_permissions": {
+    "synthesis_difficulty": 4,
+    "rationale": "Three age tiers \u00d7 three actions \u00d7 sign-guarded `durationSince` (negative-duration trap)."
+  },
+  "time_of_day_business_hours": {
+    "synthesis_difficulty": 2,
+    "rationale": "currentHour Long comparison (9 \u2264 x < 17) + role-based override + admin-off-hours forbid."
+  },
+  "twenty_action_workflow": {
+    "synthesis_difficulty": 3,
+    "rationale": "20 procurement actions per-role gating; scale stress."
+  },
+  "union_principal_types": {
+    "synthesis_difficulty": 3,
+    "rationale": "Three-way principal union with `is`-typed narrowing for per-type attribute access."
+  },
+  "union_semantics_adversarial": {
+    "synthesis_difficulty": 4,
+    "rationale": "Cross-product trap: `(A||B) && (X||Y)` over-permits compared to `(A&&X) || (B&&Y)`."
+  },
+  "webhook_signature_verification": {
+    "synthesis_difficulty": 2,
+    "rationale": "Non-User WebhookEndpoint principal + boolean isVerified + allowedEvents containment + isInternal block."
+  },
+  "whitelist_and_blacklist": {
+    "synthesis_difficulty": 2,
+    "rationale": "Positive `contains` + negated `contains` on per-resource Set<Entity> + boolean trustedSource conjunction."
+  },
+  "wide_set_50_elements": {
+    "synthesis_difficulty": 3,
+    "rationale": "50 distinct capability strings with single uniform `containsAll` rule; scale of liveness witnesses."
+  }
+}

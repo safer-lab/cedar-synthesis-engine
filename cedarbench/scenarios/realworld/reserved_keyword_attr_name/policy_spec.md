@@ -7,6 +7,7 @@ features:
   - capability-set scoping for write/admin actions
   - membership via Set<Entity> (symcc-friendly)
 domain: messaging / collaboration
+synthesis_difficulty: 3
 ---
 
 # Reserved-Keyword-Adjacent Attribute Names — Policy Specification

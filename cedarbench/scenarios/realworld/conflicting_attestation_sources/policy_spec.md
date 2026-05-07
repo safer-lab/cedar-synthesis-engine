@@ -7,6 +7,7 @@ features:
   - cross-source consistency check
   - all-three-must-agree predicate
 domain: document management / data governance
+synthesis_difficulty: 3
 ---
 
 # Conflicting Attestation Sources -- Policy Specification

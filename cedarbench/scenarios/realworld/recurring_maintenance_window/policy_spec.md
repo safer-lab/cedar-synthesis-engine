@@ -7,6 +7,7 @@ features:
   - host-supplied recurring window boundaries
   - role-based override
 domain: infrastructure / SRE
+synthesis_difficulty: 3
 ---
 
 # Recurring Maintenance Window -- Policy Specification

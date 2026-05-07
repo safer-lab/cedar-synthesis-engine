@@ -8,6 +8,7 @@ features:
   - optional context attribute with has-guard (controlledSubstanceVerified)
   - conditional context requirement (controlled substances only)
 domain: healthcare
+synthesis_difficulty: 3
 ---
 
 # Medical Prescription Workflow -- Policy Specification

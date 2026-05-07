@@ -6,6 +6,7 @@ features:
   - has-guard discipline (§8.3 stress)
   - conjunction of 5 has-guarded reads
 domain: identity / federation
+synthesis_difficulty: 4
 ---
 
 # Federated Resource Access — Many Optional Attestations

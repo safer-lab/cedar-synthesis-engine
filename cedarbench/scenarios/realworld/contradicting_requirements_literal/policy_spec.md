@@ -7,6 +7,7 @@ features:
   - quarantine forbid
   - owner baseline permit
 domain: document storage / content moderation
+synthesis_difficulty: 4
 ---
 
 # Contradicting Requirements (Literal) — Policy Specification

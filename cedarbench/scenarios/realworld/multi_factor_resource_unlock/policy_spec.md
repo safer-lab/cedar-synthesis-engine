@@ -6,6 +6,7 @@ features:
   - role + context conjunction
   - graduated unlock levels
 domain: security / vault
+synthesis_difficulty: 3
 ---
 
 # Multi-Factor Resource Unlock — Policy Specification

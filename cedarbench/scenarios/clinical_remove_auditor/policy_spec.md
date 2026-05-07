@@ -8,6 +8,7 @@ features:
   - remove auditor role
 domain: healthcare / clinical trials
 source: mutation (clinical domain)
+synthesis_difficulty: 1
 ---
 
 # Clinical Trial Data Platform -- Policy Specification

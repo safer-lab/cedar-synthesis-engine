@@ -7,6 +7,7 @@ features:
   - ".containsAll()" for elevated access
   - intersection-based access decision
 domain: content management / tagging
+synthesis_difficulty: 2
 ---
 
 # Set ContainsAny — Policy Specification

@@ -7,6 +7,7 @@ features:
   - additive permit composition
   - no-forbid encoding (role-intersection trap)
 domain: content access
+synthesis_difficulty: 3
 ---
 
 # Priority-Based Role Resolution — Policy Specification

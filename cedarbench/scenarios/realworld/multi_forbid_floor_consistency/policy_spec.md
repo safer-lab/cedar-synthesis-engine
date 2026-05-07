@@ -7,6 +7,7 @@ features:
   - context-attestation
   - boolean-conjunction-stress
 domain: enterprise-access-control
+synthesis_difficulty: 3
 ---
 
 # Multi-Forbid Floor Consistency

@@ -7,6 +7,7 @@ features:
   - fallback access path (owner vs grantee)
   - per-action scoping on the same grant
 domain: engineering / SRE
+synthesis_difficulty: 3
 ---
 
 # Delegation with Temporary Grant — Policy Specification

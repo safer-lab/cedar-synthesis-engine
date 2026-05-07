@@ -7,6 +7,7 @@ features:
   - combinatorial enumeration
   - adversarial plateau landscape
 domain: synthetic / search-landscape stress
+synthesis_difficulty: 4
 ---
 
 # Plateau Landscape: Exactly 3-of-5 Threshold

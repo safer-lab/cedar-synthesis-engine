@@ -6,6 +6,7 @@ features:
   - compositional forbids (PII training, need-to-know)
   - action variants (read vs download with different requirements)
 domain: government, healthcare, defense
+synthesis_difficulty: 3
 ---
 
 # PII Data Classification — Policy Specification

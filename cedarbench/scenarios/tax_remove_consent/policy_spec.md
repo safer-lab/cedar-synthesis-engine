@@ -8,6 +8,7 @@ features:
   - remove consent forbid
 domain: finance / tax preparation
 source: mutation (tax domain)
+synthesis_difficulty: 2
 ---
 
 # Tax Preparer Permissions -- Policy Specification (No Consent)

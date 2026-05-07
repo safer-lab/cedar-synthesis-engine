@@ -7,6 +7,7 @@ features:
   - role + grant + justification conjunction
   - has-guard for optional context
 domain: security / privileged access
+synthesis_difficulty: 3
 ---
 
 # Role Elevation With Attestation — Policy Specification

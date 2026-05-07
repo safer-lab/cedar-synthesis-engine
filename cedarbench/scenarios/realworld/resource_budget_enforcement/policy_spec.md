@@ -6,6 +6,7 @@ features:
   - context-provided usage counters
   - tier-based resource limits
 domain: cloud platform / SaaS billing
+synthesis_difficulty: 2
 ---
 
 # Resource Budget Enforcement — Policy Specification

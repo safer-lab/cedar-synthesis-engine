@@ -7,6 +7,7 @@ features:
   - role-based action assignment (trader / settlement_clerk / auditor / manager)
   - mutual exclusion across {trade, settle, audit} workflow
 domain: finance / banking / SOX compliance
+synthesis_difficulty: 4
 ---
 
 # SOX Three-Role Separation of Duties — Policy Specification

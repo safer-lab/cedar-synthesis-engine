@@ -8,6 +8,7 @@ features:
   - state-machine guard (isSubmitted)
   - multi-condition conjunction
 domain: banking/finance
+synthesis_difficulty: 3
 ---
 
 # Loan Approval Workflow — Policy Specification

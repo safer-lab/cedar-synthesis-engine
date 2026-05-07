@@ -7,6 +7,7 @@ features:
   - per-principal timezone offset
   - datetime.offset and datetime.toTime
 domain: enterprise / HR
+synthesis_difficulty: 3
 ---
 
 # Business Hours with User-Supplied Timezone Offset -- Policy Specification

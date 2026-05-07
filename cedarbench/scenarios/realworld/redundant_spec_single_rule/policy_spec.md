@@ -6,6 +6,7 @@ features:
   - single owner-only access rule
   - encoding-once discipline
 domain: document storage
+synthesis_difficulty: 1
 ---
 
 # Redundant Spec — Single Rule Restated Three Ways

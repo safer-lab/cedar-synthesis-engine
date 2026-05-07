@@ -8,6 +8,7 @@ features:
   - integer comparison on Long balance
   - role-based gating
 domain: enterprise banking / account management
+synthesis_difficulty: 4
 ---
 
 # OOP-Prior Trap — Policy Specification

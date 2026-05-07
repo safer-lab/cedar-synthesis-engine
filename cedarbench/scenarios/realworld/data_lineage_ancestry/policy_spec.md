@@ -7,6 +7,7 @@ features:
   - department-scoped actions (derive, delete)
   - four distinct actions with layered requirements
 domain: data engineering
+synthesis_difficulty: 3
 ---
 
 # Data Lineage Ancestry -- Access Inherits from Data Labels

@@ -6,6 +6,7 @@ features:
   - role-based action assignment
   - amount-thresholded escalation (CFO-only for large entries)
 domain: finance / SOX compliance
+synthesis_difficulty: 3
 ---
 
 # Payroll Separation of Duties — Policy Specification

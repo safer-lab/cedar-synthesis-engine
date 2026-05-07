@@ -8,6 +8,7 @@ features:
   - version lock flag
 domain: document management
 source: mutation (doccloud domain)
+synthesis_difficulty: 2
 ---
 
 # Document Cloud Permissions -- Policy Specification

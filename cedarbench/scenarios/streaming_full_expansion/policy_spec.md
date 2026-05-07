@@ -8,6 +8,7 @@ features:
   - all mutations combined
 domain: media / streaming
 source: mutation (streaming domain)
+synthesis_difficulty: 4
 ---
 
 # Streaming Service — Policy Specification

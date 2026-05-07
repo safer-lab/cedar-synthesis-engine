@@ -7,6 +7,7 @@ features:
   - negated set membership via !...contains()
   - boolean context flag conjunction
 domain: API gateway / access control
+synthesis_difficulty: 2
 ---
 
 # Whitelist AND Blacklist — Policy Specification

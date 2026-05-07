@@ -6,6 +6,7 @@ features:
   - counterintuitive privilege asymmetry
   - read-broadest / write-narrowest role
 domain: audit / compliance / oversight
+synthesis_difficulty: 4
 ---
 
 # Read-Only Auditor Admin — Policy Specification

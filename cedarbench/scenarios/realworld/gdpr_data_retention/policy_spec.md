@@ -7,6 +7,7 @@ features:
   - role-based access with compliance override
   - action-specific temporal constraints
 domain: compliance / GDPR
+synthesis_difficulty: 3
 ---
 
 # GDPR Data Retention — Policy Specification

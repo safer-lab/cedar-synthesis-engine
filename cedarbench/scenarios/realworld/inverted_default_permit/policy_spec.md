@@ -6,6 +6,7 @@ features:
   - explicit denylist via Set membership
   - inversion of Cedar's natural deny-by-default model
 domain: public content / publishing
+synthesis_difficulty: 3
 ---
 
 # Inverted Default-Permit (Public Content with Denylist)

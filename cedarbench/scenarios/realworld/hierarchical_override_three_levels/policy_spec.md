@@ -7,6 +7,7 @@ features:
   - per-(level, category) cell encoding to avoid §8.6 role-intersection trap
   - resource categorization gating
 domain: enterprise access control
+synthesis_difficulty: 3
 ---
 
 # Hierarchical Role Override (Three Levels)

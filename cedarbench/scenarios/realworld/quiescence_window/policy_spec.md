@@ -7,6 +7,7 @@ features:
   - durationSince
   - sign-guard
 domain: rate-limiting
+synthesis_difficulty: 3
 ---
 
 # Quiescence Window — per-user cooldown

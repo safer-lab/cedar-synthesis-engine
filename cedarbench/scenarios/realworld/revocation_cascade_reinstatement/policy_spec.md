@@ -6,6 +6,7 @@ features:
   - host-precomputed chain attestation (Cedar cannot quantify over Sets)
   - owner bypass with attestation conjunction
 domain: collaborative document sharing / delegated permissions
+synthesis_difficulty: 3
 ---
 
 # Revocation Cascade & Reinstatement — Policy Specification

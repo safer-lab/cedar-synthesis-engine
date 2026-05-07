@@ -8,6 +8,7 @@ features:
   - campaign time window
 domain: enterprise sales / CRM
 source: mutation (sales domain)
+synthesis_difficulty: 3
 ---
 
 # Sales Organization Permissions -- Policy Specification

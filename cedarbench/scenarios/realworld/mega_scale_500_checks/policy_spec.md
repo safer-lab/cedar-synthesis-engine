@@ -7,6 +7,7 @@ features:
   - tests harness conversation trimming at scale
   - tests verification plan handling beyond 157 (prior max)
 domain: e-commerce back-office (meta / harness stress)
+synthesis_difficulty: 3
 ---
 
 # Mega-Scale 500-Check Stress — Policy Specification

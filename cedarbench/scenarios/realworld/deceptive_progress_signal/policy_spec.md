@@ -8,6 +8,7 @@ features:
   - student self-access on view only
   - three actions with deceptively similar permission shapes
 domain: education / exam grading
+synthesis_difficulty: 4
 ---
 
 # Deceptive Progress Signal — Exam Grading System

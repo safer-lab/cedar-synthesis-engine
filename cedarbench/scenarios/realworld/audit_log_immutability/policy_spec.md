@@ -6,6 +6,7 @@ features:
   - role hierarchy with compliance override for read
   - forbid rule for unconditional delete denial
 domain: compliance / SOX
+synthesis_difficulty: 2
 ---
 
 # Audit Log Immutability — Policy Specification

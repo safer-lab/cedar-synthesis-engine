@@ -6,6 +6,7 @@ features:
   - coupled (attribute, attribute) conditions
   - adversarial cross-product encoding trap
 domain: access control / general
+synthesis_difficulty: 4
 ---
 
 # Union Semantics Adversarial — Policy Specification

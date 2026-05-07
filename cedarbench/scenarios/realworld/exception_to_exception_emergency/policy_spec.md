@@ -8,6 +8,7 @@ features:
   - principal attribute gating
   - context-driven mode switching
 domain: enterprise security
+synthesis_difficulty: 4
 ---
 
 # Exception-to-Exception Emergency — Policy Specification

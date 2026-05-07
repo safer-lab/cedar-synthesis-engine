@@ -7,6 +7,7 @@ features:
   - severity tiers
   - category branching
 domain: incident response / security operations
+synthesis_difficulty: 3
 ---
 
 # If-Then-Else Decision Tree -- Policy Specification

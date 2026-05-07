@@ -8,6 +8,7 @@ features:
   - sensitivity classification
 domain: finance / tax preparation
 source: mutation (tax domain)
+synthesis_difficulty: 3
 ---
 
 # Tax Preparer Permissions -- Policy Specification

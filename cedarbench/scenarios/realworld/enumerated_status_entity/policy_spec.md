@@ -7,6 +7,7 @@ features:
   - lifecycle / state machine
   - role-based gating
 domain: document management
+synthesis_difficulty: 3
 ---
 
 # Enumerated Status Entity — Document Lifecycle

@@ -6,6 +6,7 @@ features:
   - string suffix matching (email domain)
   - subdomain disambiguation
 domain: any SaaS with email-based identity
+synthesis_difficulty: 2
 ---
 
 # Email-Based Domain Access Control — Policy Specification

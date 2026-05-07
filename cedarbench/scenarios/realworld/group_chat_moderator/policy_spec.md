@@ -6,6 +6,7 @@ features:
   - set contains for moderator list
   - owner vs moderator vs member permission split
 domain: social / messaging (Discord/Slack)
+synthesis_difficulty: 5
 ---
 
 # Group Chat Moderator — Policy Specification

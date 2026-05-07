@@ -7,6 +7,7 @@ features:
   - role-based action restriction
   - compositional permit conditions
 domain: compliance/enterprise
+synthesis_difficulty: 2
 ---
 
 # Compliance Training Gate -- Policy Specification

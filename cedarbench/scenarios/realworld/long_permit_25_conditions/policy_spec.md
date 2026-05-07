@@ -7,6 +7,7 @@ features:
   - context + principal + resource attribute interplay
   - deny-by-default with single permit gate
 domain: enterprise security / audit-heavy access
+synthesis_difficulty: 3
 ---
 
 # Long Permit (25 AND Conditions) — Policy Specification

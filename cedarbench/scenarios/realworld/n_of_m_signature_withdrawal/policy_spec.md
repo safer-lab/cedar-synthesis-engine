@@ -7,6 +7,7 @@ features:
   - no .size() operator workaround
   - withdrawable / dynamic context attestations
 domain: governance / multi-sig
+synthesis_difficulty: 4
 ---
 
 # N-of-M Signature Withdrawal — Policy Specification

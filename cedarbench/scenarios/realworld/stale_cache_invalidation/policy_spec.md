@@ -7,6 +7,7 @@ features:
   - has-guards on optional timestamps
   - role-based MFA escalation
 domain: security / authorization caching
+synthesis_difficulty: 4
 ---
 
 # Stale Cache Invalidation -- Policy Specification

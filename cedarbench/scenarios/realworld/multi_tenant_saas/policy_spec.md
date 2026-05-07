@@ -1,3 +1,6 @@
+---
+synthesis_difficulty: 2
+---
 # Multi-Tenant SaaS — Policy Specification
 
 ## Context

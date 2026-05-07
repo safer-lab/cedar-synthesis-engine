@@ -6,6 +6,7 @@ features:
   - implicit invariant from schema design
   - adversarial spec phrasing
 domain: file storage / collaboration
+synthesis_difficulty: 4
 ---
 
 # Hidden Simple Gotcha -- Policy Specification

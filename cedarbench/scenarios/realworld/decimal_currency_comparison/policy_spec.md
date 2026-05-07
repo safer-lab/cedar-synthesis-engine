@@ -6,6 +6,7 @@ features:
   - method comparison (.lessThan, .greaterThan)
   - precision up to 4 digits
 domain: finance / payments
+synthesis_difficulty: 3
 ---
 
 # Decimal Currency Comparison -- Policy Specification

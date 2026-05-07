@@ -7,6 +7,7 @@ features:
   - user-level role override of tenant default
   - asymmetric read/write authorization
 domain: multi-tenant SaaS
+synthesis_difficulty: 3
 ---
 
 # Default Scope Mismatch — Policy Specification

@@ -7,6 +7,7 @@ features:
   - wildcard matching
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 3
 ---
 
 # Tag- and Role-Based Access Control — Policy Specification

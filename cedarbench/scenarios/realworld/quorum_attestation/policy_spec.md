@@ -7,6 +7,7 @@ features:
   - no .size() operator workaround
   - emergency override pattern
 domain: incident response / emergency override
+synthesis_difficulty: 4
 ---
 
 # Quorum Attestation — Emergency Override Policy Specification

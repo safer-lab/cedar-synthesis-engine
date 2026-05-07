@@ -1,3 +1,6 @@
+---
+synthesis_difficulty: 3
+---
 # Legal Hold Override Expiry — Policy Specification
 
 ## Context

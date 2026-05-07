@@ -8,6 +8,7 @@ features:
   - consent-based access gate
 domain: healthcare / clinical trials
 source: mutation (clinical domain)
+synthesis_difficulty: 2
 ---
 
 # Clinical Trial Data Platform -- Policy Specification

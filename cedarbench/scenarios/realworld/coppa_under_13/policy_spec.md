@@ -8,6 +8,7 @@ features:
   - data-subject vs. requesting-principal age check
   - COPPA-stricter rule (under-13 personal data unshareable even with consent)
 domain: privacy / regulatory compliance
+synthesis_difficulty: 4
 ---
 
 # COPPA: Under-13 Verifiable Parental Consent

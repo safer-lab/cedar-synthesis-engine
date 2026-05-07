@@ -6,6 +6,7 @@ features:
   - role + boolean flag for restore authorization
   - environment-based restriction (production vs staging)
 domain: infrastructure / DevOps
+synthesis_difficulty: 2
 ---
 
 # Backup/Restore Asymmetric — Policy Specification
