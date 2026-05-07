@@ -3,6 +3,22 @@
 Project orientation for future Claude Code sessions. This file auto-loads.
 Keep it under ~300 lines; move deep detail to `docs/`.
 
+## ⚠️ CURRENT DIRECTION (May 2026)
+
+**The project is pivoting to a Human-in-the-Loop production agent.** The
+existing v1 harness and 221-scenario CedarBench are now the "Phase 0"
+baseline. The next major work is a HITL agent that handles real
+production inputs (prose specs from regulations, memos, etc.) by
+atomizing schema design and property elicitation with user validation.
+
+**Read before doing anything new:** `docs/HITL_PRODUCTION_AGENT_PLAN.md`.
+That document is a complete handoff for the HITL agent work.
+
+If you're a fresh Claude instance picking up this project, the
+recommended first step is the **honest scenario-difficulty grading task
+(Step A in the plan)** — don't write new scenarios or polish the paper
+until that's done.
+
 ## What this project is
 
 A two-phase CEGIS harness that synthesizes Cedar access-control policies
