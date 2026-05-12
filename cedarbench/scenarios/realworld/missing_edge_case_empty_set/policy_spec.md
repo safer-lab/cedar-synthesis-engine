@@ -7,6 +7,7 @@ features:
   - safe-default planner inference
   - implicit edge-case handling
 domain: document tagging / search
+synthesis_difficulty: 4
 ---
 
 # Missing Edge Case: Empty Set -- Policy Specification

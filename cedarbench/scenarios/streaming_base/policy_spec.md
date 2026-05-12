@@ -7,6 +7,7 @@ features:
   - parental controls
 domain: media / streaming
 source: mutation (streaming domain)
+synthesis_difficulty: 3
 ---
 
 # Streaming Service — Policy Specification

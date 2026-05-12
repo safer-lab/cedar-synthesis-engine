@@ -8,6 +8,7 @@ features:
   - signer trust check (string equality on certificate authority)
   - role activation via either base entitlement OR cert claim
 domain: workforce identity / short-lived credentials / PKI
+synthesis_difficulty: 3
 ---
 
 # Certificate-Required Role Activation — Policy Specification

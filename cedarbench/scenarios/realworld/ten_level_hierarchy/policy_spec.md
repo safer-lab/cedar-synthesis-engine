@@ -6,6 +6,7 @@ features:
   - transitive `in` across all levels
   - tests symcc handling of deep `in` reasoning
 domain: enterprise organizational hierarchy
+synthesis_difficulty: 3
 ---
 
 # Ten-Level Hierarchy — Policy Specification

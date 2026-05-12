@@ -6,6 +6,7 @@ features:
   - severity-based action routing
   - escalation chain (junior → senior → lead)
 domain: social media / content platforms
+synthesis_difficulty: 4
 ---
 
 # Content Moderation Escalation — Policy Specification

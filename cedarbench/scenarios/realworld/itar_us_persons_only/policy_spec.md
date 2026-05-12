@@ -7,6 +7,7 @@ features:
   - action variants with progressively stricter requirements
   - controlled-versus-uncontrolled data dichotomy
 domain: aerospace, defense, dual-use technology
+synthesis_difficulty: 3
 ---
 
 # ITAR / EAR US-Persons-Only — Policy Specification

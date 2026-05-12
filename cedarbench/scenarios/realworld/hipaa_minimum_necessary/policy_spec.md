@@ -7,6 +7,7 @@ features:
   - action-specific context requirements (disclosureLog for disclose)
   - authorization override (patient consent bypasses minimum necessary)
 domain: healthcare / compliance / HIPAA
+synthesis_difficulty: 4
 ---
 
 # HIPAA Minimum Necessary — Policy Specification

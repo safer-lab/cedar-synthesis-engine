@@ -7,6 +7,7 @@ features:
   - chain-of-trust validation (delegator continuity check)
   - owner fallback path
 domain: enterprise / authorization
+synthesis_difficulty: 4
 ---
 
 # Delegation Chain with Dual Expiry — Policy Specification

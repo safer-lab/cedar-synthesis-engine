@@ -7,6 +7,7 @@ features:
   - action variants with different plan requirements
   - disjunctive tier encoding (no enum ordering in Cedar)
 domain: streaming, SaaS
+synthesis_difficulty: 3
 ---
 
 # Subscription Content Gate -- Policy Specification

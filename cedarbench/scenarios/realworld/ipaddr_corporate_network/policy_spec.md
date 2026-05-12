@@ -7,6 +7,7 @@ features:
   - vpn segmentation
   - role-gated administrative subnet
 domain: enterprise / network security
+synthesis_difficulty: 3
 ---
 
 # IP-Address Corporate Network -- Policy Specification

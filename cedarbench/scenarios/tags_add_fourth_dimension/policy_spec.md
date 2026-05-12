@@ -8,6 +8,7 @@ features:
   - fourth dimension attribute
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 2
 ---
 
 # Tags & Roles Workspace Permissions -- Policy Specification (Four Dimensions)

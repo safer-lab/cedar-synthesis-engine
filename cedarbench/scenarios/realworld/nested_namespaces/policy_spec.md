@@ -6,6 +6,7 @@ features:
   - cross-namespace entity type references
   - qualified principal/action/resource types in rule heads
 domain: enterprise SaaS / billing
+synthesis_difficulty: 2
 ---
 
 # Nested Namespaces — Billing Invoice Lines

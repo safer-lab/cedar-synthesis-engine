@@ -7,6 +7,7 @@ features:
   - hazardous-item role escalation
   - action-specific role requirements
 domain: logistics / warehouse
+synthesis_difficulty: 3
 ---
 
 # Inventory Warehouse Zone Access -- Policy Specification

@@ -6,6 +6,7 @@ features:
   - global blocking forbid (Set<User> containment)
   - self-blocking corner case
 domain: social platforms with "quiet mode"
+synthesis_difficulty: 4
 ---
 
 # Self-Reference Corner Case — Policy Specification

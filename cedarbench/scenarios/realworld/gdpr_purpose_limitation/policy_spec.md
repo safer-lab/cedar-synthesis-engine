@@ -7,6 +7,7 @@ features:
   - per-action role gating (controller / processor / dpo)
   - boolean consent gate
 domain: privacy, compliance, EU data protection
+synthesis_difficulty: 3
 ---
 
 # GDPR Purpose Limitation — Policy Specification

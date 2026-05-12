@@ -6,6 +6,7 @@ features:
   - Tenant-ID equality enforcement (cross-tenant denied by default)
   - 1 ceiling + 100 per-tenant floors + 1 liveness = 102 checks
 domain: multi-tenant SaaS, meta-harness scale test
+synthesis_difficulty: 3
 ---
 
 # Hundred-Tenant Isolation — Multi-Tenant SaaS Policy

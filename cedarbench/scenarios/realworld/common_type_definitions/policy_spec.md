@@ -8,6 +8,7 @@ features:
   - 3-deep nested record access (`resource.contact.address.country`)
   - mixed principal types (Customer, Vendor, Employee, Admin) per action
 domain: customer relationship management / contact directory
+synthesis_difficulty: 3
 ---
 
 # Common Type Definitions — Contact Directory

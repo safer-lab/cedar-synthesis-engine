@@ -6,6 +6,7 @@ features:
   - domain shorthand
   - implicit conventions
 domain: content management system
+synthesis_difficulty: 3
 ---
 
 # Standard RBAC for a Content Management System

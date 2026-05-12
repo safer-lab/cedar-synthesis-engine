@@ -7,6 +7,7 @@ features:
   - role-based action restriction (manager-only reassign)
   - universally permitted action (escalate)
 domain: customer support
+synthesis_difficulty: 3
 ---
 
 # Customer Support Ticket Escalation -- Policy Specification

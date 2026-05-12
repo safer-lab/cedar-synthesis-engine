@@ -7,6 +7,7 @@ features:
   - active vs resolved incident distinction
   - post-mortem log access survives resolution
 domain: security/SRE
+synthesis_difficulty: 3
 ---
 
 # Incident Response War Room

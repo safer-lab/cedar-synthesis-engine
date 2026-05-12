@@ -8,6 +8,7 @@ features:
   - escalation-chain action
   - §8.6 role-intersection trap stress test
 domain: enterprise-iam
+synthesis_difficulty: 4
 ---
 
 # Five-Way Role Intersection — Policy Specification

@@ -7,6 +7,7 @@ features:
   - leap-year correctness
   - per-resource age threshold
 domain: media / age-gated content
+synthesis_difficulty: 4
 ---
 
 # Age Verification with Leap Years -- Policy Specification

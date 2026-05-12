@@ -7,6 +7,7 @@ features:
   - geo-fenced role activation
   - role conditional on environment
 domain: enterprise security
+synthesis_difficulty: 2
 ---
 
 # Conditional Role Activation — Policy Specification

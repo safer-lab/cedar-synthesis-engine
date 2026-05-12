@@ -6,6 +6,7 @@ features:
   - percentage-based rollout via numeric comparison
   - role override
 domain: SaaS platform
+synthesis_difficulty: 2
 ---
 
 # Feature Flag Rollout

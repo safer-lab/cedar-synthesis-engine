@@ -6,6 +6,7 @@ features:
   - optional context attributes for prior-actor attestation
   - has-guarded reads (canonical positive form)
 domain: change management / SOX-style controls
+synthesis_difficulty: 4
 ---
 
 # Three-Way Mutual Exclusion — Policy Specification

@@ -7,6 +7,7 @@ features:
   - risk-score branching
   - multi-attribute attestation conjunction
 domain: financial / compliance
+synthesis_difficulty: 3
 ---
 
 # AML / KYC Tiered Customer Due Diligence — Policy Specification

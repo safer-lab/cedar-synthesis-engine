@@ -7,6 +7,7 @@ features:
   - getTag operator
   - set intersection on tag values
 domain: clearance / classified data
+synthesis_difficulty: 4
 ---
 
 # Entity Tags with hasTag/getTag — Policy Specification

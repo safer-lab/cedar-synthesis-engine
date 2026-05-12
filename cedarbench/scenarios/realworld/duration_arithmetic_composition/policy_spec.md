@@ -8,6 +8,7 @@ features:
   - sign-guarded comparisons
   - cumulative quota tracking
 domain: subscription / grace-period billing
+synthesis_difficulty: 4
 ---
 
 # Composed Duration Arithmetic -- Policy Specification

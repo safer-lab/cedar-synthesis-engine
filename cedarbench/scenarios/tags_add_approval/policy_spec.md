@@ -8,6 +8,7 @@ features:
   - approval requirement
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 2
 ---
 
 # Tags & Roles Workspace Permissions -- Policy Specification

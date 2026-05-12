@@ -7,6 +7,7 @@ features:
   - four-tier temporal partition
   - tier-boundary inclusive/exclusive bounds
 domain: PKI / TLS infrastructure
+synthesis_difficulty: 3
 ---
 
 # Grace Period Three-Tier — Policy Specification

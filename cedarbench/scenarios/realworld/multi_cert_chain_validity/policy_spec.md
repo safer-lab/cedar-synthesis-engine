@@ -6,6 +6,7 @@ features:
   - 3-way temporal interval intersection
   - 6-comparison conjunction
 domain: PKI / certificate validation
+synthesis_difficulty: 3
 ---
 
 # Multi-Cert Chain Validity -- Policy Specification

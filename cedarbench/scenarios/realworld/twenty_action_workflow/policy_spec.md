@@ -6,6 +6,7 @@ features:
   - per-action role gating
   - tests action-set scale
 domain: enterprise procurement
+synthesis_difficulty: 3
 ---
 
 # Twenty-Action Workflow — Policy Specification

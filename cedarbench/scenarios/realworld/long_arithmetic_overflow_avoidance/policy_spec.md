@@ -7,6 +7,7 @@ features:
   - role-gated approval
   - context-provided amounts
 domain: financial / project budgeting
+synthesis_difficulty: 4
 ---
 
 # Long Arithmetic Overflow Avoidance — Policy Specification

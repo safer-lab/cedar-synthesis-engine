@@ -8,6 +8,7 @@ features:
   - dual-attribute requirement (cdeAuthorized AND auditCompliant)
   - data-type-conditional audit restrictions
 domain: payments, fintech, PCI compliance
+synthesis_difficulty: 3
 ---
 
 # PCI DSS CDE Boundary — Policy Specification

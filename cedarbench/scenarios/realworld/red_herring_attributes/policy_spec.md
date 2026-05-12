@@ -8,6 +8,7 @@ features:
   - boolean MFA gate
   - owner equality
 domain: adversarial/focus
+synthesis_difficulty: 4
 ---
 
 # Red Herring Attributes -- Policy Specification

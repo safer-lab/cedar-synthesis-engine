@@ -8,6 +8,7 @@ features:
   - sensitivity level
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 3
 ---
 
 # Tags & Roles Workspace Permissions -- Policy Specification

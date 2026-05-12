@@ -7,6 +7,7 @@ features:
   - role-based override (oncall)
   - inverted gating (emergency only during blackout)
 domain: SRE / change management
+synthesis_difficulty: 3
 ---
 
 # Recurring Weekly Blackout -- Policy Specification

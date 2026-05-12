@@ -7,6 +7,7 @@ features:
   - extrapolation from partial spec
   - per-role floors
 domain: developer tools / source control
+synthesis_difficulty: 3
 ---
 
 # Partial Spec Pattern Extrapolation -- Policy Specification

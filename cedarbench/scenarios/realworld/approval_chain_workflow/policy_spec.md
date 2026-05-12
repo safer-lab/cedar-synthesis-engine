@@ -1,3 +1,6 @@
+---
+synthesis_difficulty: 3
+---
 # Approval Chain Workflow — Policy Specification
 
 ## Context

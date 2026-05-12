@@ -8,6 +8,7 @@ features:
   - pull request review state machine
 domain: software development
 source: mutation (github domain)
+synthesis_difficulty: 3
 ---
 
 # GitHub Repository Permissions — Policy Specification

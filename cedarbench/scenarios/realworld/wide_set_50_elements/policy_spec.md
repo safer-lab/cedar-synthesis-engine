@@ -7,6 +7,7 @@ features:
   - 50 distinct string-literal capability predicates across the verification plan
   - many concrete (subscribed-set, required-set) liveness instantiations
 domain: SaaS feature flags / entitlements
+synthesis_difficulty: 3
 ---
 
 # Wide Set 50 Elements — Policy Specification

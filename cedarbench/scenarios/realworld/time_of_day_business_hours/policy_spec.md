@@ -5,6 +5,7 @@ features:
   - duration comparison for time-of-day
   - role-based override
 domain: enterprise / HR
+synthesis_difficulty: 2
 ---
 
 # Time-of-Day Business Hours -- Policy Specification

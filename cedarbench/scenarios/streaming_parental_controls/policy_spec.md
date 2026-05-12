@@ -8,6 +8,7 @@ features:
   - parental control pin + age
 domain: media / streaming
 source: mutation (streaming domain)
+synthesis_difficulty: 3
 ---
 
 # Streaming Service — Policy Specification

@@ -10,6 +10,7 @@ features:
   - ceilings + floors with opposite directions — §8.1
   - role-intersection forbid trap — §8.6
 domain: regression-battery
+synthesis_difficulty: 5
 ---
 
 # Regression Battery — All Traps

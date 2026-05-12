@@ -6,6 +6,7 @@ features:
   - hedging language ("normally", "rare exceptions")
   - planner-discipline test
 domain: profile / identity management
+synthesis_difficulty: 2
 ---
 
 # Hypothetical Exception (Unspecified) — Policy Specification

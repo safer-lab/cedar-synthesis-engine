@@ -8,6 +8,7 @@ features:
   - sensitivity + owner compound
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 5
 ---
 
 # Tags & Roles Workspace Permissions -- Policy Specification (Combined)

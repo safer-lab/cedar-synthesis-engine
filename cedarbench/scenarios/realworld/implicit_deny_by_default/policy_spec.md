@@ -7,6 +7,7 @@ features:
   - role-intersection trap (multi-role principals)
   - positive-permit-only encoding
 domain: healthcare
+synthesis_difficulty: 2
 ---
 
 # Implicit Deny-by-Default — Patient Chart Access

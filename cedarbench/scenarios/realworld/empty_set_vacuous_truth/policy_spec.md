@@ -7,6 +7,7 @@ features:
   - ".isEmpty()" guard against vacuous-true trap
   - role-based bypass
 domain: workplace safety / training compliance
+synthesis_difficulty: 4
 ---
 
 # Empty-Set Vacuous Truth — Policy Specification

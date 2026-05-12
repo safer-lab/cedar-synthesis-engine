@@ -1,3 +1,6 @@
+---
+synthesis_difficulty: 2
+---
 # Emergency Break-Glass — Policy Specification
 
 ## Context

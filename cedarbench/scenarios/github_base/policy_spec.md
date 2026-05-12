@@ -7,6 +7,7 @@ features:
   - archive blocking
 domain: software development
 source: mutation (github domain)
+synthesis_difficulty: 2
 ---
 
 # GitHub Repository Permissions — Policy Specification

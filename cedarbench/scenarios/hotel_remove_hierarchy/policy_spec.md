@@ -8,6 +8,7 @@ features:
   - remove hierarchy level
 domain: hospitality / hotel chains
 source: mutation (hotel domain)
+synthesis_difficulty: 2
 ---
 
 # Hotel Chain Permissions -- Policy Specification (Flat Hierarchy)

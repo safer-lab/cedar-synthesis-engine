@@ -7,6 +7,7 @@ features:
   - per-purpose set membership
   - explicit branching (no dynamic record key access)
 domain: healthcare / data minimization
+synthesis_difficulty: 4
 ---
 
 # Purpose-Bound Field Access -- Policy Specification

@@ -7,6 +7,7 @@ features:
   - entity in context
   - if-then-else equivalence with conjunction
 domain: identity / session management
+synthesis_difficulty: 3
 ---
 
 # Cascading Session Expiry -- Policy Specification

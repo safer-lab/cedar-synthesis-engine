@@ -7,6 +7,7 @@ features:
   - per-action scoping (delegate is owner-only)
   - record-typed context attribute
 domain: legal / capability systems
+synthesis_difficulty: 3
 ---
 
 # Anti-Transitive Delegation — Policy Specification

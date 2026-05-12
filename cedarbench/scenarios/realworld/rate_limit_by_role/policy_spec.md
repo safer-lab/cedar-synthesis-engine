@@ -6,6 +6,7 @@ features:
   - role-derived thresholds
   - context-provided counters
 domain: API gateway
+synthesis_difficulty: 2
 ---
 
 # Rate Limit by Role -- Policy Specification

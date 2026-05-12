@@ -8,6 +8,7 @@ features:
   - per-attestation validity windows
   - 9-clause conjunction
 domain: governance / multi-sig
+synthesis_difficulty: 4
 ---
 
 # Compound Attestation Multi-Signer — Policy Specification

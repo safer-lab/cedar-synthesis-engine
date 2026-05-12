@@ -7,6 +7,7 @@ features:
   - blocking semantics
 domain: document management
 source: mutation (doccloud domain)
+synthesis_difficulty: 3
 ---
 
 # Document Cloud Drive — Policy Specification

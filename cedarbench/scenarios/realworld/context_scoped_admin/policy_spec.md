@@ -6,6 +6,7 @@ features:
   - role-vs-capability separation
   - tenant scoping
 domain: multi-tenant SaaS / platform
+synthesis_difficulty: 2
 ---
 
 # Context-Scoped Admin — Policy Specification

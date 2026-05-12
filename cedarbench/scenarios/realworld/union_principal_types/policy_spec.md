@@ -7,6 +7,7 @@ features:
   - per-type attribute access
   - heterogeneous principal authorization
 domain: api gateway
+synthesis_difficulty: 3
 ---
 
 # Union Principal Types — API Gateway

@@ -7,6 +7,7 @@ features:
   - context-supplied rolling-window counters
   - tier-derived thresholds
 domain: API gateway
+synthesis_difficulty: 3
 ---
 
 # Rolling Rate Limit Window -- Policy Specification

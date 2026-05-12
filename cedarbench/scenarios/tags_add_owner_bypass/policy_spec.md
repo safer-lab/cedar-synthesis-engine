@@ -8,6 +8,7 @@ features:
   - owner bypass rule
 domain: content management / tagging
 source: mutation (tags domain)
+synthesis_difficulty: 2
 ---
 
 # Tags & Roles Workspace Permissions -- Policy Specification

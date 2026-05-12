@@ -8,6 +8,7 @@ features:
   - new action: pull request
 domain: software development
 source: mutation (github domain)
+synthesis_difficulty: 3
 ---
 
 # GitHub Repository Permissions — Policy Specification

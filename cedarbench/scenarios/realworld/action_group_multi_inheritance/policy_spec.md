@@ -7,6 +7,7 @@ features:
   - cross-cutting capability requirements
   - forbid-based gating
 domain: document_management
+synthesis_difficulty: 3
 ---
 
 # DocumentVault — Action Groups With Multi-Parent Inheritance

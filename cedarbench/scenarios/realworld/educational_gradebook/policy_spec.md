@@ -8,6 +8,7 @@ features:
   - boolean attribute gating (isFinal)
   - self-access pattern (principal == resource.studentId)
 domain: education
+synthesis_difficulty: 3
 ---
 
 # Educational Gradebook Access Control

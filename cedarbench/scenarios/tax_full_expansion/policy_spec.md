@@ -8,6 +8,7 @@ features:
   - all mutations combined
 domain: finance / tax preparation
 source: mutation (tax domain)
+synthesis_difficulty: 3
 ---
 
 # Tax Preparer Permissions -- Policy Specification (Full Expansion)

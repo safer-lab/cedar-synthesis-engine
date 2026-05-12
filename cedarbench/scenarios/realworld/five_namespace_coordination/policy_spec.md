@@ -6,6 +6,7 @@ features:
   - cross-namespace entity type references
   - qualified entity names throughout policies
 domain: enterprise multi-domain platform
+synthesis_difficulty: 3
 ---
 
 # Five-Namespace Coordination — Policy Specification

@@ -7,6 +7,7 @@ features:
   - 2x scale of mega_scale_500_checks
   - tests harness ceiling for plan size and feedback formatting
 domain: e-commerce back-office (meta / harness stress)
+synthesis_difficulty: 3
 ---
 
 # Mega-Scale 1000-Check Stress — Policy Specification

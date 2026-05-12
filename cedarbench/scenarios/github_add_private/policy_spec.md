@@ -8,6 +8,7 @@ features:
   - private visibility flag
 domain: software development
 source: mutation (github domain)
+synthesis_difficulty: 1
 ---
 
 # GitHub Repository Permissions — Policy Specification

@@ -7,6 +7,7 @@ features:
   - guard-encoded priority (no native rule priorities)
   - tier-based defaults with overrides
 domain: API quota / billing
+synthesis_difficulty: 3
 ---
 
 # Ordered Override Resolution -- Policy Specification

@@ -6,6 +6,7 @@ features:
   - disjunctive permission (OR-shaped)
   - ambiguous English-language specification
 domain: document collaboration
+synthesis_difficulty: 3
 ---
 
 # Specification Ambiguity -- Editors and Owners

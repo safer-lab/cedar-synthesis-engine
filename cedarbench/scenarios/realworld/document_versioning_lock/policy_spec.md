@@ -6,6 +6,7 @@ features:
   - owner-based lock control
   - version state gating
 domain: content management
+synthesis_difficulty: 3
 ---
 
 # Document Versioning Lock — Policy Specification

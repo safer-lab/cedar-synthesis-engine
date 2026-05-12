@@ -7,6 +7,7 @@ features:
   - intersection requirement (every required cert must be held)
   - adversarial — invites the wrong "any of" idiom
 domain: industrial / controlled material handling
+synthesis_difficulty: 3
 ---
 
 # Role-Set Intersection Required — Policy Specification

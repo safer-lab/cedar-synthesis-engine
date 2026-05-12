@@ -8,6 +8,7 @@ features:
   - temporal rate windows
 domain: hospitality / hotel chains
 source: mutation (hotel domain)
+synthesis_difficulty: 3
 ---
 
 # Hotel Chain Permissions -- Policy Specification

@@ -6,6 +6,7 @@ features:
   - duration arithmetic for anti-leak buffer
   - explicit branching (no dynamic record key access)
 domain: media / content distribution
+synthesis_difficulty: 3
 ---
 
 # Embargo By Region -- Policy Specification

@@ -7,6 +7,7 @@ features:
   - boolean encoding of nested if/else (no Cedar ternary)
   - role + context conjunction
 domain: emergency response / security lockdown
+synthesis_difficulty: 4
 ---
 
 # Four-Level Unless Chain — Emergency Lockdown Override

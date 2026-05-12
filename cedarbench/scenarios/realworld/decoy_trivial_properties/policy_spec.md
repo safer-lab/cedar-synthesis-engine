@@ -7,6 +7,7 @@ features:
   - trivially-true-floors
   - verification-plan-stress
 domain: harness-meta
+synthesis_difficulty: 3
 ---
 
 # Decoy Trivial Properties — Policy Specification

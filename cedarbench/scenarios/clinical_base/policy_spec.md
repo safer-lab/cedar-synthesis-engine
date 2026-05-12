@@ -7,6 +7,7 @@ features:
   - consent-based access
 domain: healthcare / clinical trials
 source: mutation (clinical domain)
+synthesis_difficulty: 2
 ---
 
 # Policy Specification — Clinical Trial Data Platform

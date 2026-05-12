@@ -9,6 +9,7 @@ features:
   - owner-bypass with MFA-on-confidential carve-out (§8.8)
   - three parallel actions (read / write / delete)
 domain: enterprise document store / data classification
+synthesis_difficulty: 4
 ---
 
 # Adversarial Oscillation Bait — Policy Specification

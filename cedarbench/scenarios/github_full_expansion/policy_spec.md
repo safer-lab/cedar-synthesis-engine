@@ -8,6 +8,7 @@ features:
   - all mutations combined
 domain: software development
 source: mutation (github domain)
+synthesis_difficulty: 3
 ---
 
 # GitHub Repository Permissions — Policy Specification (Full Expansion)

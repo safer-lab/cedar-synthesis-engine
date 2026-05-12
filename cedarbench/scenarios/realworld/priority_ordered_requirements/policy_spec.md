@@ -6,6 +6,7 @@ features:
   - conflicting rule resolution via guards
   - negation of higher-priority conditions on lower-priority rules
 domain: data governance / compliance
+synthesis_difficulty: 4
 ---
 
 # Priority-Ordered Requirements — Policy Specification

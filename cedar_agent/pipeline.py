@@ -1,0 +1,400 @@
+"""End-to-end pipeline orchestration.
+
+See ``docs/HITL_STEP_B_PLAN.md`` §7.1 for the call graph. The pipeline
+runs Stages 1, 1.5 (schema amendments), 2, 1.75 (pre-Stage-3 unsat
+detection), 3 (synthesis with critic loop), and 2.5 (atom-to-policy
+traceback) in that order, with the v1 harness contract at Stage 3
+unchanged.
+
+The skeleton in this module is testable end-to-end with stubs for the
+LLM-driven proposers and the synthesis call. Step C/D plugs in real
+LLM-driven proposers; the synthesis stub is replaced by the existing
+``eval_harness.run_scenario`` invocation.
+
+Per acceptance criterion 8 in §9, this module compiles, and a stubbed
+end-to-end ``author()`` call produces the corpus directory layout
+without errors.
+"""
+
+from __future__ import annotations
+
+import datetime
+import os
+import shutil
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Callable, Optional
+
+from cedar_agent.atoms import (
+    ActionAtom,
+    AttributeAtom,
+    EntityAtom,
+    PropertyAtom,
+    SchemaDraft,
+    TypeAliasAtom,
+    VerificationPlanDraft,
+)
+from cedar_agent.corpus import (
+    AtomDecision,
+    AttributionDecision,
+    IterationLog,
+    Session,
+)
+from cedar_agent.critic import (
+    CRITIC_DIMENSIONS,
+    CriticScore,
+    score_candidate as score_candidate_default,
+    stub_llm_scorer,
+)
+from cedar_agent.grounding import symbolic_verify_atom
+from cedar_agent.plan_verification import (
+    generate_atom_traceback,
+    symbolic_consistency_check,
+)
+from cedar_agent.property_elicitor import compile_plan
+from cedar_agent.schema_atomizer import compose_schema
+
+
+# ---------------------------------------------------------------------------
+# Callback type aliases.
+# ---------------------------------------------------------------------------
+
+# Stage 1: propose schema atoms from prose. Returns an ordered list.
+Stage1AtomT = EntityAtom | AttributeAtom | ActionAtom | TypeAliasAtom
+SchemaProposer = Callable[[str], list[Stage1AtomT]]
+
+# Stage 2: propose property atoms from prose + the validated schema.
+PropertyProposer = Callable[[str, str], list[PropertyAtom]]
+
+# Per-atom user review.
+AtomReviewer = Callable[[Any], AtomDecision]
+
+# Stage 3 synthesis: given a scenario directory, produce candidate.cedar.
+# Returns the candidate path. Real implementations wrap eval_harness.
+Synthesizer = Callable[[Path], Path]
+
+
+# ---------------------------------------------------------------------------
+# Default stubs (Step B).
+# ---------------------------------------------------------------------------
+
+def _stub_schema_proposer(spec_text: str) -> list[Stage1AtomT]:
+    """Default Stage 1 proposer for Step B: returns an empty list.
+
+    Step C plugs in the real LLM-driven proposer. Step B's end-to-end
+    test passes a fixture-returning proposer directly.
+    """
+    _ = spec_text
+    return []
+
+
+def _stub_property_proposer(spec_text: str, schema_path: str) -> list[PropertyAtom]:
+    """Default Stage 2 proposer for Step B: returns an empty list.
+
+    Step D plugs in the real LLM-driven proposer.
+    """
+    _ = spec_text, schema_path
+    return []
+
+
+def _stub_auto_approve(atom: Any) -> AtomDecision:
+    """Default reviewer for Step B: auto-approves with intent ack.
+
+    Real interactive review lives in ``cedar_agent.ui.terminal``.
+    """
+    return AtomDecision(
+        atom_name=getattr(atom, "name", "?"),
+        action="approve",
+        intent_acknowledged_by_user=True,
+        symbolic_verified=getattr(atom, "symbolic_verified", False),
+    )
+
+
+def _stub_synthesizer(scenario_dir: Path) -> Path:
+    """Default synthesizer for Step B: writes a known-trivial candidate.
+
+    Real synthesis wraps ``eval_harness.run_scenario``; the stub exists
+    so the pipeline test can run without invoking the LLM-driven
+    harness loop. The trivial candidate is `permit (...)` — usually
+    over-permissive but always parses.
+    """
+    candidate = scenario_dir / "candidate.cedar"
+    candidate.write_text(
+        "// stubbed Step B synthesizer output\n"
+        "permit (principal, action, resource);\n",
+    )
+    return candidate
+
+
+# ---------------------------------------------------------------------------
+# Result object.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class AuthorResult:
+    """Output of ``author``."""
+
+    session_id: str
+    session_dir: Path
+    candidate_path: Path
+    plan: VerificationPlanDraft
+    schema_text: str
+    final_user_approved: bool = True
+    notes: list[str] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Top-level pipeline.
+# ---------------------------------------------------------------------------
+
+def author(
+    spec_path: str | Path,
+    output_dir: str | Path,
+    *,
+    session_id: Optional[str] = None,
+    propose_schema_atoms: SchemaProposer = _stub_schema_proposer,
+    propose_property_atoms: PropertyProposer = _stub_property_proposer,
+    review_atom: AtomReviewer = _stub_auto_approve,
+    synthesize: Synthesizer = _stub_synthesizer,
+    score_candidate: Callable[[str], CriticScore] = (
+        lambda c: score_candidate_default(c, llm=stub_llm_scorer)
+    ),
+    schema_path_override: Optional[str] = None,
+) -> AuthorResult:
+    """End-to-end Stage-1-through-2.5 pipeline.
+
+    All LLM-driven steps are injected as callables so Step B tests can
+    run without a live LLM. ``synthesize`` is the integration point with
+    the v1 harness; Step C/D's default wraps ``eval_harness.run_scenario``.
+
+    ``schema_path_override`` is for tests that need to point at a
+    pre-built schema (rather than composing one from atoms via the
+    proposer). When set, Stage 1 atom-proposal is skipped and the
+    pipeline composes its schema text directly from disk.
+    """
+    spec_path = Path(spec_path)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    session_id = session_id or datetime.datetime.utcnow().strftime("session-%Y%m%d-%H%M%S")
+    session = Session(session_id, output_dir)
+
+    spec_text = spec_path.read_text()
+    session.write_input_spec(spec_text, filename=spec_path.name)
+
+    # ──── Stage 1: schema atomization ────
+    if schema_path_override:
+        schema_text = Path(schema_path_override).read_text()
+        # Persist the chosen schema in the session so later stages have
+        # a stable on-disk path to point at.
+        schema_dest = session.base / "stage1" / "final_schema.cedarschema"
+        schema_dest.write_text(schema_text)
+        schema_path: Path = schema_dest
+        session.write_stage1_proposed_atoms([])
+        session.write_stage1_attribution_decisions([])
+        session.write_stage1_decisions([])
+    else:
+        schema_atoms = propose_schema_atoms(spec_text)
+        session.write_stage1_proposed_atoms(schema_atoms)
+        attributions = [
+            AttributionDecision(
+                atom_name=a.name,
+                span_text=a.source_excerpt,
+            )
+            for a in schema_atoms
+        ]
+        session.write_stage1_attribution_decisions(attributions)
+
+        decisions: list[AtomDecision] = []
+        draft = SchemaDraft()
+        for atom in schema_atoms:
+            decision = review_atom(atom)
+            decisions.append(decision)
+            if decision.action != "approve":
+                continue
+            _route_into_schema_draft(atom, draft)
+        session.write_stage1_decisions(decisions)
+        schema_text = compose_schema(draft) if (
+            draft.entities or draft.actions or draft.type_aliases
+        ) else "// empty schema (stub)\n"
+        schema_path = session.base / "stage1" / "final_schema.cedarschema"
+        schema_path.write_text(schema_text)
+    session.write_stage1_final_schema(schema_text)
+
+    # ──── Stage 2: property elicitation ────
+    prop_atoms = propose_property_atoms(spec_text, str(schema_path))
+    session.write_stage2_proposed_atoms(prop_atoms)
+    attributions2 = [
+        AttributionDecision(atom_name=a.name, span_text=a.source_excerpt)
+        for a in prop_atoms
+    ]
+    session.write_stage2_attribution_decisions(attributions2)
+
+    # ──── Stage 1.5: schema amendments forced by sugar atoms ────
+    amendments = _detect_schema_amendments(prop_atoms)
+    session.write_stage1_5_amendments(amendments)
+    # In Step B we don't auto-amend the schema text; we just log.
+
+    # Per-atom symbolic verification (§4) + decision review.
+    decisions2: list[AtomDecision] = []
+    plan = VerificationPlanDraft(properties=[])
+    verification_logs: dict[str, list[str]] = {}
+    for atom in prop_atoms:
+        symbolic_verify_atom(atom, str(schema_path), prior_atoms=plan.properties)
+        verification_logs[atom.name] = list(atom.symbolic_verification_log)
+        decision = review_atom(atom)
+        # Mirror the symbolic_verified flag onto the decision log so the
+        # corpus captures both fields per §1.4.
+        decision.symbolic_verified = atom.symbolic_verified
+        if decision.action == "approve":
+            atom.intent_acknowledged_by_user = True
+            plan.properties.append(atom)
+        decisions2.append(decision)
+    session.write_stage2_decisions(decisions2)
+    session.write_stage2_symbolic_verification_logs(verification_logs)
+    session.write_stage2_adversarial_examples(
+        {a.name: [_example_to_dict(e) for e in a.examples_adversarial] for a in plan.properties},
+    )
+
+    # ──── Stage 1.75: pre-synthesis unsat detection ────
+    consistency = symbolic_consistency_check(plan, str(schema_path))
+    session.write_stage1_75_unsat_core(
+        unsat=consistency.unsat,
+        core=consistency.core,
+        detail=consistency.detail,
+    )
+    if consistency.unsat:
+        session.flush_transcript()
+        return AuthorResult(
+            session_id=session_id,
+            session_dir=session.base,
+            candidate_path=Path(""),
+            plan=plan,
+            schema_text=schema_text,
+            final_user_approved=False,
+            notes=[f"Stage 1.75 unsat: {consistency.detail}"],
+        )
+
+    # ──── Stage 2 final compile (sugar resolution + §8.8 patches) ────
+    compiled = compile_plan(plan)
+    session.write_stage2_final_plan(compiled.verification_plan_py, compiled.references)
+
+    # Materialize a complete scenario directory for Stage 3.
+    scenario_dir = _materialize_scenario_dir(
+        session_dir=session.base,
+        spec_text=spec_text,
+        schema_text=schema_text,
+        plan_py=compiled.verification_plan_py,
+        references=compiled.references,
+    )
+
+    # ──── Stage 3: synthesis (with critic loop in real use) ────
+    candidate_path = synthesize(scenario_dir)
+    candidate_text = candidate_path.read_text()
+    iter_log = IterationLog(
+        iter_number=1,
+        candidate_cedar=candidate_text,
+        verifier_feedback={"passed": True, "note": "stubbed in Step B"},
+        critic_score=_critic_score_to_dict(score_candidate(candidate_text)),
+    )
+    session.write_stage3_iteration(iter_log)
+    session.write_stage3_final_candidate(candidate_text)
+
+    # ──── Stage 2.5: atom-to-policy traceback ────
+    traceback = generate_atom_traceback(plan, str(candidate_path))
+    session.write_stage2_5_traceback(traceback)
+    session.write_stage2_5_final_decision(approved=True)
+
+    session.flush_transcript()
+
+    return AuthorResult(
+        session_id=session_id,
+        session_dir=session.base,
+        candidate_path=candidate_path,
+        plan=plan,
+        schema_text=schema_text,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Helpers.
+# ---------------------------------------------------------------------------
+
+def _route_into_schema_draft(atom: Stage1AtomT, draft: SchemaDraft) -> None:
+    """Insert an approved Stage 1 atom into the right SchemaDraft slot."""
+    if isinstance(atom, EntityAtom):
+        draft.entities[atom.name] = atom
+    elif isinstance(atom, ActionAtom):
+        draft.actions[atom.name] = atom
+    elif isinstance(atom, TypeAliasAtom):
+        draft.type_aliases[atom.name] = atom
+    elif isinstance(atom, AttributeAtom):
+        # Attribute atoms are owned by an entity; route them in.
+        owner = draft.entities.get(atom.on_entity)
+        if owner is not None:
+            owner.attributes[atom.field_name] = atom
+        # If owner not found, the atom is dropped — Step C should ensure
+        # entity atoms are proposed before their attribute atoms.
+
+
+def _detect_schema_amendments(prop_atoms: list[PropertyAtom]) -> list[dict[str, Any]]:
+    """Stage 1.5: list schema amendments forced by Stage 2 sugar atoms.
+
+    Step B records amendments to the corpus but does not apply them
+    interactively; Step C wires the user-confirmation prompt.
+    """
+    out: list[dict[str, Any]] = []
+    for atom in prop_atoms:
+        if atom.constraint_type == "rate_limit" and atom.rate_limit_counter_attr:
+            out.append(
+                {
+                    "kind": "context_attribute",
+                    "atom": atom.name,
+                    "action": atom.action,
+                    "attribute": atom.rate_limit_counter_attr,
+                    "type": "Long",
+                    "rationale": (
+                        f"rate_limit atom {atom.name!r} requires the host application "
+                        f"to maintain context.{atom.rate_limit_counter_attr}"
+                    ),
+                },
+            )
+    return out
+
+
+def _materialize_scenario_dir(
+    session_dir: Path,
+    spec_text: str,
+    schema_text: str,
+    plan_py: str,
+    references: dict[str, str],
+) -> Path:
+    """Stand up a v1-harness-shaped scenario directory under the session."""
+    scenario_dir = session_dir / "scenario"
+    scenario_dir.mkdir(exist_ok=True)
+    (scenario_dir / "policy_spec.md").write_text(spec_text)
+    (scenario_dir / "schema.cedarschema").write_text(schema_text)
+    (scenario_dir / "verification_plan.py").write_text(plan_py)
+    refs_dir = scenario_dir / "references"
+    refs_dir.mkdir(exist_ok=True)
+    for name, cedar in references.items():
+        (refs_dir / f"{name}.cedar").write_text(cedar)
+    return scenario_dir
+
+
+def _example_to_dict(example: Any) -> dict[str, Any]:
+    """Best-effort serialization of an Example dataclass for the corpus log."""
+    return {
+        "description": example.description,
+        "request_dict": example.request_dict,
+        "decision_under_chosen": example.decision_under_chosen,
+        "decisions_under_alternatives": example.decisions_under_alternatives,
+        "diagnostic_for": example.diagnostic_for,
+    }
+
+
+def _critic_score_to_dict(score: CriticScore) -> dict[str, Any]:
+    out: dict[str, Any] = {d: getattr(score, d) for d in CRITIC_DIMENSIONS}
+    out["composite_mean"] = score.composite_mean
+    out["composite_min"] = score.composite_min
+    out["rationales"] = score.rationales
+    return out

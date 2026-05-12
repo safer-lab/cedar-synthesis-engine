@@ -8,6 +8,7 @@ features:
   - tiered access matrix (action x sensitivity x age)
   - per-action ceilings with shared age structure
 domain: identity / privileged access management
+synthesis_difficulty: 4
 ---
 
 # Time-Decay Permissions -- Policy Specification

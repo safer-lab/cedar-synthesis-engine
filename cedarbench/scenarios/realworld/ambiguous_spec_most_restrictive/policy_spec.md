@@ -6,6 +6,7 @@ features:
   - role-bounded permits
   - hedged natural-language requirements
 domain: governance / least-privilege defaults
+synthesis_difficulty: 4
 ---
 
 # Ambiguous Specification — Policy Specification

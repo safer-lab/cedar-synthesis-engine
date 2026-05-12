@@ -6,6 +6,7 @@ features:
   - permits cannot override forbids — must weaken the forbid condition
   - per-action exception asymmetry (view has owner exception, edit does not)
 domain: document management / records retention
+synthesis_difficulty: 3
 ---
 
 # Forbid with Specific Exception — Policy Specification

@@ -7,6 +7,7 @@ features:
   - string equality on resource attribute (environment)
   - three-action authorization surface
 domain: DevOps
+synthesis_difficulty: 2
 ---
 
 # CI/CD Deployment Gate

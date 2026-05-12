@@ -8,6 +8,7 @@ features:
   - employment-status gating
   - schema deliberately omits a `role` attribute
 domain: workforce identity / RBAC-from-ABAC composition
+synthesis_difficulty: 3
 ---
 
 # Role Composition From Attributes — Policy Specification

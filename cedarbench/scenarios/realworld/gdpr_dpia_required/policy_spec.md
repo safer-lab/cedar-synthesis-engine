@@ -8,6 +8,7 @@ features:
   - per-action policy splits with shared DPIA freshness predicate
   - role-based access with DPO override on terminate
 domain: compliance / GDPR
+synthesis_difficulty: 4
 ---
 
 # GDPR Art. 35 DPIA Required — Policy Specification

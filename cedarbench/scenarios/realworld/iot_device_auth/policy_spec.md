@@ -7,6 +7,7 @@ features:
   - device status flag for revocation
   - owner-based management path
 domain: IoT / smart home
+synthesis_difficulty: 2
 ---
 
 # IoT Device Authorization — Policy Specification
