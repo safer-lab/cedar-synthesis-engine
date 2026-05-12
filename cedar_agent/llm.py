@@ -291,6 +291,74 @@ class LLMClient:
     # Stage 1 fix: ask the LLM to fix a cedar-validate failure.
     # ------------------------------------------------------------------
 
+    def answer_question_about_atom(
+        self,
+        atom: Stage1Atom,
+        question: str,
+        spec_text: str,
+    ) -> str:
+        """Answer a user's free-text question about one Stage 1 atom.
+
+        Used by the interactive review loop's ``[Q]`` key. The atom is
+        rendered as JSON in the user turn so the model has the full
+        context (rationale, plain English, source excerpt, fields).
+        Returns plain text — no structured output needed.
+        """
+        from cedar_agent.atoms import to_dict as _atom_to_dict
+
+        atom_json = _atom_to_dict(atom)
+        user_turn = (
+            f"The user is reviewing this Stage 1 atom:\n\n"
+            f"```json\n{atom_json}\n```\n\n"
+            f"They ask: {question}\n\n"
+            "Answer their question in 1–3 sentences. Stay focused on "
+            "this atom and the spec; do not propose changes unless the "
+            "user explicitly asks for one."
+        )
+        response = self._call_text(
+            system_prompt=_load_prompt("schema_atomization.md"),
+            spec_text=spec_text,
+            user_turn=user_turn,
+        )
+        return response
+
+    def propose_alternative_atom(
+        self,
+        rejected_atom: Stage1Atom,
+        user_reason: str,
+        spec_text: str,
+    ) -> Optional[Stage1Atom]:
+        """Propose a replacement for an atom the user rejected.
+
+        Used by the interactive review loop's ``[R]`` key. Returns the
+        first atom in the LLM's response (always re-using the same
+        ``SchemaAtomsResponse`` schema for consistency), or ``None`` if
+        the LLM declined to propose an alternative.
+        """
+        from cedar_agent.atoms import to_dict as _atom_to_dict
+
+        atom_json = _atom_to_dict(rejected_atom)
+        user_turn = (
+            "The user rejected this Stage 1 atom:\n\n"
+            f"```json\n{atom_json}\n```\n\n"
+            f"Their reason: {user_reason}\n\n"
+            "Propose ONE replacement atom of the same kind that "
+            "addresses the user's concern. Return your proposal in "
+            "the same SchemaAtomsResponse format (atoms list with a "
+            "single entry). If you cannot improve on the rejected "
+            "atom, return an empty atoms list."
+        )
+        response = self._call_parse(
+            system_prompt=_load_prompt("schema_atomization.md"),
+            spec_text=spec_text,
+            user_turn=user_turn,
+            output_format=SchemaAtomsResponse,
+        )
+        atoms = response.parsed_output.atoms
+        if not atoms:
+            return None
+        return _translate_atom(atoms[0])
+
     def fix_schema(
         self,
         schema_text: str,
@@ -371,3 +439,39 @@ class LLMClient:
             messages=[{"role": "user", "content": user_turn}],
             output_format=output_format,
         )
+
+    def _call_text(
+        self,
+        *,
+        system_prompt: str,
+        spec_text: str,
+        user_turn: str,
+    ) -> str:
+        """Call ``messages.create`` for plain-text output (no Pydantic schema).
+
+        Used by ``answer_question_about_atom``. The cache layout is
+        identical to ``_call_parse`` so the system+spec cache is shared
+        across propose / fix / answer calls in one session.
+        """
+        response = self._client.messages.create(
+            model=self._model,
+            max_tokens=self._max_tokens,
+            thinking={"type": "adaptive"},
+            output_config={
+                "effort": self._effort,
+            },
+            system=[
+                {"type": "text", "text": system_prompt},
+                {
+                    "type": "text",
+                    "text": f"<spec>\n{spec_text}\n</spec>",
+                    "cache_control": {"type": "ephemeral"},
+                },
+            ],
+            messages=[{"role": "user", "content": user_turn}],
+        )
+        # Extract the first text block (skip any thinking blocks).
+        for block in response.content:
+            if getattr(block, "type", None) == "text":
+                return block.text
+        return ""
